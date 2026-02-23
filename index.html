@@ -782,7 +782,7 @@
 
   <!-- Financial Inputs -->
   <div class="card">
-    <div class="card-title">Financial Inputs</div>
+    <div class="card-title">Financial Inputs (Currency Agnostic, just give the numbers)</div>
 
     <div class="input-group">
       <div class="input-label">
@@ -808,12 +808,6 @@
       <input type="range" id="postReturn" min="3" max="12" step="0.5" value="7" oninput="update()">
     </div>
 
-    <!-- Target Corpus Reference -->
-    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.2); border-radius:10px; padding:12px 16px; margin-bottom:16px;">
-      <span style="font-size:12px; color:var(--muted);">Target Corpus Needed</span>
-      <span style="font-family:'Playfair Display',serif; font-size:18px; color:var(--gold2); font-weight:700;" id="corpus-ref">—</span>
-    </div>
-
     <!-- Existing Corpus Toggle -->
     <div class="toggle-row">
       <span class="toggle-label">I have existing savings</span>
@@ -829,7 +823,7 @@
           <span>Existing Corpus</span>
           <span class="input-value" id="val-existing">10,000</span>
         </div>
-        <input type="range" id="existing" min="0" max="20000000" step="50000" value="10000" oninput="update()">
+        <input type="range" id="existing" min="0" max="50000000" step="50000" value="10000" oninput="update()">
       </div>
     </div>
   </div>
@@ -845,9 +839,6 @@
       <button class="scenario-tab" data-return="11" onclick="setScenario(this)">11%</button>
       <button class="scenario-tab" data-return="12" onclick="setScenario(this)">12%</button>
       <button class="scenario-tab" data-return="13" onclick="setScenario(this)">13%</button>
-    </div>
-    <div style="font-size:12px; color: var(--muted);">
-      Expected annual return on investments during accumulation phase.
     </div>
   </div>
 
@@ -894,20 +885,6 @@
     </div>
     <div class="chart-wrap">
       <canvas id="growthChart" height="260"></canvas>
-    </div>
-  </div>
-
-  <!-- Scenario Comparison -->
-  <div class="card" style="animation-delay: 0.3s;">
-    <div class="card-title">Scenario Comparison</div>
-    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-top:4px;" id="compare-grid">
-      <div class="compare-item" id="cmp-7"><div class="compare-name">7%</div><div class="compare-sip compare-sip-val" id="cmp-7-sip">—</div></div>
-      <div class="compare-item" id="cmp-8"><div class="compare-name">8%</div><div class="compare-sip compare-sip-val" id="cmp-8-sip">—</div></div>
-      <div class="compare-item" id="cmp-9"><div class="compare-name">9%</div><div class="compare-sip compare-sip-val" id="cmp-9-sip">—</div></div>
-      <div class="compare-item" id="cmp-10"><div class="compare-name">10%</div><div class="compare-sip compare-sip-val" id="cmp-10-sip">—</div></div>
-      <div class="compare-item" id="cmp-11"><div class="compare-name">11%</div><div class="compare-sip compare-sip-val" id="cmp-11-sip">—</div></div>
-      <div class="compare-item" id="cmp-12"><div class="compare-name">12%</div><div class="compare-sip compare-sip-val" id="cmp-12-sip">—</div></div>
-      <div class="compare-item" id="cmp-13"><div class="compare-name">13%</div><div class="compare-sip compare-sip-val" id="cmp-13-sip">—</div></div>
     </div>
   </div>
 
@@ -1141,7 +1118,6 @@ function update() {
 
   document.getElementById('sip-amount').textContent = fmt(Math.ceil(sip));
   document.getElementById('corpus-amount').textContent = fmt(corpus);
-  document.getElementById('corpus-ref').textContent    = fmt(corpus);
   document.getElementById('years-left').textContent = yearsToRetire + ' yrs';
   document.getElementById('future-expense').textContent = fmt(futureExpense);
   document.getElementById('total-invest').textContent = fmt(Math.ceil(sip) * months);
@@ -1150,14 +1126,6 @@ function update() {
   const existingPct = Math.min(99, (existing / corpus * 100));
   document.getElementById('progress-bar').style.width = existingPct + '%';
   document.getElementById('progress-pct').textContent = existingPct.toFixed(1) + '%';
-
-  // Scenario comparison
-  [7,8,9,10,11,12,13].forEach(ret => {
-    const res = calcSIPForReturn(ret);
-    document.getElementById(`cmp-${ret}-sip`).textContent = fmt(Math.ceil(res.sip));
-    const el = document.getElementById(`cmp-${ret}`);
-    el.classList.toggle('highlight', ret === currentReturn);
-  });
 
   // Chart
   drawChart(corpus, sip, months, age, retireAge, existing);
@@ -1340,12 +1308,10 @@ function getSuggestedAlloc(yearsToRetire) {
 }
 
 function updateAlloc() {
-  // Update return value displays
   document.getElementById('val-eq-return').textContent   = document.getElementById('eq-return').value + '%';
   document.getElementById('val-debt-return').textContent = document.getElementById('debt-return').value + '%';
   document.getElementById('val-dep-return').textContent  = document.getElementById('dep-return').value + '%';
 
-  // Slider progress
   ['eq-return','debt-return','dep-return','tweak-equity','tweak-debt','tweak-deposit'].forEach(id => {
     const el = document.getElementById(id);
     if (el) updateSliderProgress(el);
@@ -1355,11 +1321,9 @@ function updateAlloc() {
   const debtR = +document.getElementById('debt-return').value;
   const depR  = +document.getElementById('dep-return').value;
 
-  // Blended return
-  const blended = (allocEquity * eqR + allocDebt * debtR + allocDeposit * depR) / 100;
+  const blended = (allocEquity*eqR + allocDebt*debtR + allocDeposit*depR) / 100;
   document.getElementById('blended-return').textContent = blended.toFixed(1) + '%';
 
-  // Allocation bar
   document.getElementById('bar-equity').style.width  = allocEquity + '%';
   document.getElementById('bar-debt').style.width    = allocDebt + '%';
   document.getElementById('bar-deposit').style.width = allocDeposit + '%';
@@ -1368,13 +1332,10 @@ function updateAlloc() {
   document.getElementById('leg-debt').textContent    = 'Debt ' + allocDebt + '%';
   document.getElementById('leg-deposit').textContent = 'Bank Deposits ' + allocDeposit + '%';
 
-  document.getElementById('tweak-eq-val').textContent   = allocEquity + '%';
-  document.getElementById('tweak-debt-val').textContent  = allocDebt + '%';
-  document.getElementById('tweak-dep-val').textContent   = allocDeposit + '%';
+  document.getElementById('tweak-eq-val').textContent  = allocEquity + '%';
+  document.getElementById('tweak-debt-val').textContent = allocDebt + '%';
+  document.getElementById('tweak-dep-val').textContent  = allocDeposit + '%';
 
-  // Monthly split amounts — use the main SIP
-  const sipEl = document.getElementById('sip-amount').textContent;
-  // Re-calc raw SIP to split properly
   const { sip } = calcSIPForReturn(blended);
   const sipAmt = Math.ceil(sip);
 
@@ -1386,7 +1347,6 @@ function updateAlloc() {
   document.getElementById('pct-debt').textContent    = allocDebt + '%';
   document.getElementById('pct-deposit').textContent = allocDeposit + '%';
 
-  // Validate total
   const total = allocEquity + allocDebt + allocDeposit;
   const warn = document.getElementById('alloc-total-warn');
   if (total !== 100) {
@@ -1403,9 +1363,7 @@ function tweakAlloc(changed) {
   const debt = +document.getElementById('tweak-debt').value;
   const dep  = +document.getElementById('tweak-deposit').value;
 
-  // Clamp so the other two share remaining proportionally
-  let remaining = 100 - (changed === 'equity' ? eq : changed === 'debt' ? debt : dep);
-  if (remaining < 0) remaining = 0;
+  let remaining = Math.max(0, 100 - (changed === 'equity' ? eq : changed === 'debt' ? debt : dep));
 
   if (changed === 'equity') {
     const total = debt + dep || 1;
