@@ -3,7 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Retire Rich · Planner</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<title>Retire Rich · Planner v3</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
@@ -786,7 +789,7 @@
         <span>Monthly Expenses (today)</span>
         <span class="input-value" id="val-expense">3,000</span>
       </div>
-      <input type="range" id="expense" min="500" max="100000" step="100" value="3000" oninput="update()">
+      <input type="range" id="expense" min="500" max="200000" step="100" value="3000" oninput="update()">
     </div>
 
     <div class="input-group">
@@ -803,6 +806,12 @@
         <span class="input-value" id="val-postReturn">7%</span>
       </div>
       <input type="range" id="postReturn" min="3" max="12" step="0.5" value="7" oninput="update()">
+    </div>
+
+    <!-- Target Corpus Reference -->
+    <div style="display:flex; justify-content:space-between; align-items:center; background:rgba(201,168,76,0.06); border:1px solid rgba(201,168,76,0.2); border-radius:10px; padding:12px 16px; margin-bottom:16px;">
+      <span style="font-size:12px; color:var(--muted);">Target Corpus Needed</span>
+      <span style="font-family:'Playfair Display',serif; font-size:18px; color:var(--gold2); font-weight:700;" id="corpus-ref">—</span>
     </div>
 
     <!-- Existing Corpus Toggle -->
@@ -827,7 +836,7 @@
 
   <!-- Scenario -->
   <div class="card">
-    <div class="card-title">INVESTMENT SCENARIO (usually less than you think)</div>
+    <div class="card-title">Expected annual return on investments during accumulation phase.</div>
     <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;" id="scenario-tabs">
       <button class="scenario-tab" data-return="7" onclick="setScenario(this)">7%</button>
       <button class="scenario-tab" data-return="8" onclick="setScenario(this)">8%</button>
@@ -1060,7 +1069,7 @@ function updateSliderProgress(input) {
 }
 
 function calcSIP(corpus, annualReturn, months, existingCorpus) {
-  const r = annualReturn / 100 / 12;
+  const r = Math.pow(1 + annualReturn / 100, 1/12) - 1;
   if (months <= 0) return 0;
   const fvExisting = existingCorpus * Math.pow(1 + r, months);
   const remaining = Math.max(0, corpus - fvExisting);
@@ -1069,16 +1078,14 @@ function calcSIP(corpus, annualReturn, months, existingCorpus) {
 }
 
 function calcCorpus(monthlyExpense, annualInflation, annualPostReturn, yearsInRetirement) {
-  // Present value of annuity (inflation-adjusted)
-  const r = annualPostReturn / 100;
-  const g = annualInflation / 100;
-  const n = yearsInRetirement;
-  if (Math.abs(r - g) < 0.0001) {
-    return monthlyExpense * 12 * n;
+  // Proper monthly rate via compounding (matches Excel discrete monthly model)
+  const r = Math.pow(1 + annualPostReturn / 100, 1/12) - 1;
+  const g = Math.pow(1 + annualInflation  / 100, 1/12) - 1;
+  const n = yearsInRetirement * 12 + 1;
+  if (Math.abs(r - g) < 0.000001) {
+    return monthlyExpense * n;
   }
-  // Real rate approach: corpus = PMT_annual * (1 - (1+g)^n/(1+r)^n) / (r-g)
-  const corpus = (monthlyExpense * 12) * (1 - Math.pow((1+g)/(1+r), n)) / (r - g);
-  return corpus;
+  return monthlyExpense * (1 + r) * (1 - Math.pow((1 + g) / (1 + r), n)) / (r - g);
 }
 
 function calcSIPForReturn(ret) {
@@ -1102,7 +1109,7 @@ function calcSIPForReturn(ret) {
 }
 
 function calcSIPForCorpus(corpus, annualReturn, months, existingCorpus) {
-  const r = annualReturn / 100 / 12;
+  const r = Math.pow(1 + annualReturn / 100, 1/12) - 1;
   if (months <= 0) return 0;
   const fvExisting = existingCorpus * Math.pow(1 + r, months);
   const remaining = Math.max(0, corpus - fvExisting);
@@ -1134,6 +1141,7 @@ function update() {
 
   document.getElementById('sip-amount').textContent = fmt(Math.ceil(sip));
   document.getElementById('corpus-amount').textContent = fmt(corpus);
+  document.getElementById('corpus-ref').textContent    = fmt(corpus);
   document.getElementById('years-left').textContent = yearsToRetire + ' yrs';
   document.getElementById('future-expense').textContent = fmt(futureExpense);
   document.getElementById('total-invest').textContent = fmt(Math.ceil(sip) * months);
@@ -1167,10 +1175,11 @@ function drawChart(corpus, sip, months, age, retireAge, existing) {
   const drawLabels = [];
   const drawValues = [];
 
-  const r = currentReturn / 100 / 12;
+  const r = Math.pow(1 + currentReturn / 100, 1/12) - 1;
   const inflation = +document.getElementById('inflation').value;
   const postReturn = +document.getElementById('postReturn').value;
-  const rPost = postReturn / 100 / 12;
+  const rPost = Math.pow(1 + postReturn / 100, 1/12) - 1;
+  const inflationMonthly = Math.pow(1 + inflation / 100, 1/12) - 1;
   const lifeExp = +document.getElementById('lifeExp').value;
   const retirementMonths = (lifeExp - retireAge) * 12;
   const futureExpense = +document.getElementById('expense').value * Math.pow(1 + inflation/100, retireAge - age);
@@ -1193,17 +1202,15 @@ function drawChart(corpus, sip, months, age, retireAge, existing) {
   // --- Drawdown phase ---
   const drawSteps = Math.min(retirementMonths, 60);
   const drawInterval = Math.max(1, Math.ceil(retirementMonths / drawSteps));
-  let balance = accumValues[accumValues.length - 1];
-  const inflationMonthly = inflation / 100 / 12;
 
   for (let m = 0; m <= retirementMonths; m += drawInterval) {
     drawLabels.push(retireAge + Math.floor(m / 12));
-    // Simulate month by month up to this point
+    // Simulate month by month up to this point (withdraw first, then invest)
     let b = accumValues[accumValues.length - 1];
     for (let i = 0; i < m; i++) {
-      const withdrawal = futureExpense * Math.pow(1 + inflationMonthly, i);
-      b = b * (1 + rPost) - withdrawal;
+      b = b - futureExpense * Math.pow(1 + inflationMonthly, i); // withdraw first
       if (b < 0) { b = 0; break; }
+      b = b * (1 + rPost);  // then invest
     }
     drawValues.push(Math.round(Math.max(0, b)));
   }
@@ -1462,24 +1469,27 @@ function updateReality() {
   const yearsToRetire      = Math.max(1, retireAge - age);
   const accMonths          = yearsToRetire * 12;
   const retirementMonths   = Math.max(1, lifeExp - retireAge) * 12;
-  const rAcc               = currentReturn / 100 / 12;
-  const rPost              = postReturn / 100 / 12;
-  const inflMonthly        = inflation / 100 / 12;
+  const rAcc               = Math.pow(1 + currentReturn / 100, 1/12) - 1;
+  const rPost              = Math.pow(1 + postReturn / 100, 1/12) - 1;
+  const inflMonthly        = Math.pow(1 + inflation / 100, 1/12) - 1;
   const futureExpense      = expense * Math.pow(1 + inflation / 100, yearsToRetire);
 
   // Build corpus at retirement with actual canInvest amount
   const corpusAtRetirement = existing * Math.pow(1 + rAcc, accMonths) +
     (rAcc === 0 ? canInvest * accMonths : canInvest * (Math.pow(1 + rAcc, accMonths) - 1) / rAcc);
 
-  // Simulate drawdown month by month — find how long corpus lasts
+  // Simulate drawdown month by month (withdraw at START of month, then invest)
+  // matching Excel model: F_m = E_m - D_m, then F_m * (1+r) = balance for next month
   let balance = corpusAtRetirement;
   let monthsSurvived = 0;
-  for (let m = 0; m < retirementMonths * 2; m++) { // go up to 2x in case surplus
+  const totalMonths = retirementMonths + 1; // +1 to match Excel's n = years*12+1
+  for (let m = 0; m < totalMonths * 2; m++) {
     const withdrawal = futureExpense * Math.pow(1 + inflMonthly, m);
-    balance = balance * (1 + rPost) - withdrawal;
+    balance = balance - withdrawal;         // withdraw first
     if (balance <= 0) break;
+    balance = balance * (1 + rPost);        // then invest
     monthsSurvived = m + 1;
-    if (m >= retirementMonths - 1) { monthsSurvived = retirementMonths; break; }
+    if (m >= totalMonths - 1) { monthsSurvived = totalMonths; break; }
   }
 
   const yearsSurvived   = (monthsSurvived / 12).toFixed(1);
@@ -1504,12 +1514,13 @@ function updateReality() {
     // Corpus survives — calculate sustainable monthly expense (solve for PMT that depletes corpus at life expectancy)
     // Binary search: find max monthly expense (today's terms) such that corpus hits 0 at lifeExp
     let lo = futureExpense, hi = futureExpense * 10;
-    for (let iter = 0; iter < 50; iter++) {
+    for (let iter = 0; iter < 60; iter++) {
       const mid = (lo + hi) / 2;
       let b = corpusAtRetirement;
-      for (let m = 0; m < retirementMonths; m++) {
-        b = b * (1 + rPost) - mid * Math.pow(1 + inflMonthly, m);
-        if (b < 0) break;
+      for (let m = 0; m < retirementMonths + 1; m++) {
+        b = b - mid * Math.pow(1 + inflMonthly, m); // withdraw first
+        if (b <= 0) { b = -1; break; }
+        b = b * (1 + rPost);                         // then invest
       }
       if (b > 0) lo = mid; else hi = mid;
     }
@@ -1530,18 +1541,18 @@ function updateReality() {
 
 function drawRealityChart(corpusAtRetirement, futureExpense, retirementMonths, retireAge, lifeExp, rPost, inflMonthly, isSafe, ageAtDepletion) {
   const labels = [], values = [];
-  const steps = Math.min(retirementMonths, 60);
-  const interval = Math.max(1, Math.ceil(retirementMonths / steps));
+  const totalMonths = retirementMonths + 1;
+  const steps = Math.min(totalMonths, 60);
+  const interval = Math.max(1, Math.ceil(totalMonths / steps));
 
-  let b = corpusAtRetirement;
-  let depleted = false;
-  for (let m = 0; m <= retirementMonths; m += interval) {
+  for (let m = 0; m <= totalMonths; m += interval) {
     labels.push(retireAge + Math.floor(m / 12));
-    // Simulate from start to m
+    // Simulate from start to m using withdraw-first model
     let bal = corpusAtRetirement;
     for (let i = 0; i < m; i++) {
-      bal = bal * (1 + rPost) - futureExpense * Math.pow(1 + inflMonthly, i);
+      bal = bal - futureExpense * Math.pow(1 + inflMonthly, i); // withdraw first
       if (bal < 0) { bal = 0; break; }
+      bal = bal * (1 + rPost);  // then invest
     }
     values.push(Math.round(Math.max(0, bal)));
   }
