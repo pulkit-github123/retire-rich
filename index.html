@@ -436,13 +436,302 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Footer */
-  .footer {
+  /* Asset Allocation */
+  .alloc-badge {
+    display: inline-block;
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .alloc-badge.aggressive { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+  .alloc-badge.moderate   { background: rgba(201,168,76,0.12);  color: var(--gold2); border: 1px solid rgba(201,168,76,0.25); }
+  .alloc-badge.conservative { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.25); }
+
+  .alloc-bar-wrap {
+    margin-bottom: 20px;
+  }
+
+  .alloc-bar {
+    display: flex;
+    height: 12px;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    gap: 2px;
+  }
+
+  .alloc-bar-seg {
+    transition: width 0.5s cubic-bezier(0.4,0,0.2,1);
+    border-radius: 3px;
+  }
+
+  .alloc-bar-seg.equity  { background: var(--green); }
+  .alloc-bar-seg.debt    { background: var(--gold); }
+  .alloc-bar-seg.deposit { background: var(--blue); }
+
+  .alloc-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .alloc-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .alloc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+
+  .alloc-dot.equity  { background: var(--green); }
+  .alloc-dot.debt    { background: var(--gold); }
+  .alloc-dot.deposit { background: var(--blue); }
+
+  .alloc-dot span { color: var(--cream); font-weight: 500; }
+
+  /* Per-asset return inputs */
+  .asset-return-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .asset-return-item {
+    background: var(--navy3);
+    border-radius: 12px;
+    padding: 14px 10px;
     text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .asset-return-item.equity-item  { border-color: rgba(74,222,128,0.2); }
+  .asset-return-item.debt-item    { border-color: rgba(201,168,76,0.2); }
+  .asset-return-item.deposit-item { border-color: rgba(96,165,250,0.2); }
+
+  .asset-name {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .asset-name.equity  { color: var(--green); }
+  .asset-name.debt    { color: var(--gold); }
+  .asset-name.deposit { color: var(--blue); }
+
+  .asset-return-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--cream);
+    margin-bottom: 6px;
+  }
+
+  .asset-return-item input[type="range"] { margin-top: 2px; }
+
+  /* Allocation tweaker */
+  .alloc-tweaker {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .alloc-tweaker-title {
     font-size: 11px;
     color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .alloc-slider-row {
+    margin-bottom: 14px;
+  }
+
+  .alloc-slider-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 6px;
+  }
+
+  /* Blended return display */
+  .blended-return {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 16px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .blended-label {
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .blended-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    color: var(--gold2);
+    font-weight: 700;
+  }
+
+  /* Per-asset monthly amount */
+  .alloc-amount-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 16px;
+  }
+
+  .alloc-amount-item {
+    border-radius: 10px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+
+  .alloc-amount-item.equity-item  { background: rgba(74,222,128,0.07); border: 1px solid rgba(74,222,128,0.15); }
+  .alloc-amount-item.debt-item    { background: rgba(201,168,76,0.07); border: 1px solid rgba(201,168,76,0.15); }
+  .alloc-amount-item.deposit-item { background: rgba(96,165,250,0.07); border: 1px solid rgba(96,165,250,0.15); }
+
+  .alloc-amount-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .alloc-amount-label.equity  { color: var(--green); }
+  .alloc-amount-label.debt    { color: var(--gold); }
+  .alloc-amount-label.deposit { color: var(--blue); }
+
+  .alloc-amount-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--cream);
+    font-weight: 700;
+  }
+
+  .alloc-amount-pct {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  /* Reality Check */
+  .reality-card {
+    background: var(--navy2);
+    border: 1px solid rgba(248,113,113,0.2);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease 0.4s both;
+  }
+
+  .reality-card-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 6px;
+  }
+
+  .reality-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+
+  .reality-input-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy3);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+  }
+
+  .reality-input-row span {
+    font-size: 13px;
+    color: var(--muted);
+    flex: 1;
+  }
+
+  .reality-input-row input[type="number"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--cream);
+    width: 120px;
+    text-align: right;
+  }
+
+  .reality-input-row input[type="number"]::-webkit-inner-spin-button,
+  .reality-input-row input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  .reality-verdict {
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 20px;
+    display: none;
+  }
+
+  .reality-verdict.danger {
+    background: rgba(248,113,113,0.08);
+    border: 1px solid rgba(248,113,113,0.25);
+  }
+
+  .reality-verdict.safe {
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.2);
+  }
+
+  .verdict-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+  }
+
+  .verdict-headline {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .verdict-headline.danger { color: var(--red); }
+  .verdict-headline.safe   { color: var(--green); }
+
+  .verdict-body {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .verdict-highlight {
+    color: var(--cream);
+    font-weight: 600;
+  }
+
+  .reality-chart-wrap {
+    position: relative;
+    height: 200px;
     margin-top: 8px;
-    opacity: 0.5;
+  }
+
+  .reality-slider-wrap {
+    margin-bottom: 4px;
   }
 </style>
 </head>
@@ -613,6 +902,143 @@
     </div>
   </div>
 
+  <!-- Asset Allocation -->
+  <div class="card" id="alloc-card" style="animation-delay: 0.35s;">
+    <div class="card-title">Suggested Asset Allocation</div>
+
+    <!-- Profile badge -->
+    <div id="alloc-badge" class="alloc-badge moderate">Moderate Profile · 10–20 yrs to retirement</div>
+
+    <!-- Visual bar -->
+    <div class="alloc-bar-wrap">
+      <div class="alloc-bar">
+        <div class="alloc-bar-seg equity"  id="bar-equity"  style="width:60%"></div>
+        <div class="alloc-bar-seg debt"    id="bar-debt"    style="width:30%"></div>
+        <div class="alloc-bar-seg deposit" id="bar-deposit" style="width:10%"></div>
+      </div>
+      <div class="alloc-legend">
+        <div class="alloc-legend-item"><div class="alloc-dot equity"></div><span id="leg-equity">Equity 60%</span></div>
+        <div class="alloc-legend-item"><div class="alloc-dot debt"></div><span id="leg-debt">Debt 30%</span></div>
+        <div class="alloc-legend-item"><div class="alloc-dot deposit"></div><span id="leg-deposit">Bank Deposits 10%</span></div>
+      </div>
+    </div>
+
+    <!-- Expected returns per asset -->
+    <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Expected Returns Per Asset</div>
+    <div class="asset-return-grid">
+      <div class="asset-return-item equity-item">
+        <div class="asset-name equity">Equity</div>
+        <div class="asset-return-val" id="val-eq-return">12%</div>
+        <input type="range" id="eq-return" min="6" max="20" step="0.5" value="12" oninput="updateAlloc()">
+      </div>
+      <div class="asset-return-item debt-item">
+        <div class="asset-name debt">Debt</div>
+        <div class="asset-return-val" id="val-debt-return">8%</div>
+        <input type="range" id="debt-return" min="4" max="14" step="0.5" value="8" oninput="updateAlloc()">
+      </div>
+      <div class="asset-return-item deposit-item">
+        <div class="asset-name deposit">Deposits</div>
+        <div class="asset-return-val" id="val-dep-return">6%</div>
+        <input type="range" id="dep-return" min="3" max="10" step="0.5" value="6" oninput="updateAlloc()">
+      </div>
+    </div>
+
+    <!-- Blended return -->
+    <div class="blended-return">
+      <div>
+        <div class="blended-label">Blended Portfolio Return</div>
+        <div style="font-size:11px; color:var(--muted); margin-top:2px;">Weighted average across all assets</div>
+      </div>
+      <div class="blended-value" id="blended-return">—</div>
+    </div>
+
+    <!-- Tweaker -->
+    <div class="alloc-tweaker">
+      <div class="alloc-tweaker-title">Adjust Allocation</div>
+
+      <div class="alloc-slider-row">
+        <div class="alloc-slider-label">
+          <span style="color:var(--green)">Equity</span>
+          <span style="color:var(--cream)" id="tweak-eq-val">60%</span>
+        </div>
+        <input type="range" id="tweak-equity" min="0" max="100" step="5" value="60" oninput="tweakAlloc('equity')">
+      </div>
+
+      <div class="alloc-slider-row">
+        <div class="alloc-slider-label">
+          <span style="color:var(--gold)">Debt Funds</span>
+          <span style="color:var(--cream)" id="tweak-debt-val">30%</span>
+        </div>
+        <input type="range" id="tweak-debt" min="0" max="100" step="5" value="30" oninput="tweakAlloc('debt')">
+      </div>
+
+      <div class="alloc-slider-row">
+        <div class="alloc-slider-label">
+          <span style="color:var(--blue)">Bank Deposits</span>
+          <span style="color:var(--cream)" id="tweak-dep-val">10%</span>
+        </div>
+        <input type="range" id="tweak-deposit" min="0" max="100" step="5" value="10" oninput="tweakAlloc('deposit')">
+      </div>
+
+      <div style="font-size:11px; color:var(--muted); text-align:right; margin-top:-6px;" id="alloc-total-warn"></div>
+    </div>
+
+    <!-- Monthly split -->
+    <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-top:20px; margin-bottom:10px;">Monthly Investment Split</div>
+    <div class="alloc-amount-grid">
+      <div class="alloc-amount-item equity-item">
+        <div class="alloc-amount-label equity">Equity</div>
+        <div class="alloc-amount-val" id="amt-equity">—</div>
+        <div class="alloc-amount-pct" id="pct-equity">60%</div>
+      </div>
+      <div class="alloc-amount-item debt-item">
+        <div class="alloc-amount-label debt">Debt</div>
+        <div class="alloc-amount-val" id="amt-debt">—</div>
+        <div class="alloc-amount-pct" id="pct-debt">30%</div>
+      </div>
+      <div class="alloc-amount-item deposit-item">
+        <div class="alloc-amount-label deposit">Bank Dep.</div>
+        <div class="alloc-amount-val" id="amt-deposit">—</div>
+        <div class="alloc-amount-pct" id="pct-deposit">10%</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reality Check -->
+  <div class="reality-card">
+    <div class="reality-card-title">⚡ Reality Check</div>
+    <div class="reality-subtitle">Tell us what you can actually invest monthly and we'll show you the truth.</div>
+
+    <!-- Can-invest slider + number input -->
+    <div class="reality-slider-wrap">
+      <div class="input-label" style="margin-bottom:10px;">
+        <span style="font-size:13px; color:var(--muted);">I can invest monthly</span>
+        <span class="input-value" id="val-reality">1,000</span>
+      </div>
+      <input type="range" id="reality-invest" min="100" max="100000" step="100" value="1000" oninput="updateReality()">
+      <div class="age-display"><span>100</span><span>100,000</span></div>
+    </div>
+
+    <!-- Verdict -->
+    <div class="reality-verdict danger" id="verdict-danger">
+      <div class="verdict-icon">⚠️</div>
+      <div class="verdict-headline danger" id="verdict-danger-title">You'll run out of money</div>
+      <div class="verdict-body" id="verdict-danger-body"></div>
+    </div>
+
+    <div class="reality-verdict safe" id="verdict-safe">
+      <div class="verdict-icon">✅</div>
+      <div class="verdict-headline safe">You're on track — and then some!</div>
+      <div class="verdict-body" id="verdict-safe-body"></div>
+    </div>
+
+    <!-- Reality Chart -->
+    <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; margin-top:16px;">Corpus Trajectory With Your Investment</div>
+    <div class="reality-chart-wrap">
+      <canvas id="realityChart"></canvas>
+    </div>
+  </div>
+
   <div class="footer">For educational purposes only · Not financial advice</div>
 </div>
 
@@ -727,6 +1153,12 @@ function update() {
 
   // Chart
   drawChart(corpus, sip, months, age, retireAge, existing);
+
+  // Refresh allocation suggestion when years-to-retire changes
+  refreshAllocSuggestion(yearsToRetire);
+
+  // Keep reality check in sync
+  updateReality();
 }
 
 function drawChart(corpus, sip, months, age, retireAge, existing) {
@@ -890,9 +1322,295 @@ function toggleExisting() {
   update();
 }
 
+// ── Asset Allocation ─────────────────────────────────────────
+let allocEquity = 60, allocDebt = 30, allocDeposit = 10;
+
+function getSuggestedAlloc(yearsToRetire) {
+  if (yearsToRetire >= 20) return { eq: 80, debt: 15, dep: 5,  profile: 'aggressive',   label: 'Growth Profile · 20+ yrs to retirement' };
+  if (yearsToRetire >= 10) return { eq: 60, debt: 30, dep: 10, profile: 'moderate',     label: 'Moderate Profile · 10–20 yrs to retirement' };
+  if (yearsToRetire >= 5)  return { eq: 40, debt: 40, dep: 20, profile: 'moderate',     label: 'Balanced Profile · 5–10 yrs to retirement' };
+                           return { eq: 20, debt: 40, dep: 40, profile: 'conservative', label: 'Conservative Profile · Under 5 yrs to retirement' };
+}
+
+function updateAlloc() {
+  // Update return value displays
+  document.getElementById('val-eq-return').textContent   = document.getElementById('eq-return').value + '%';
+  document.getElementById('val-debt-return').textContent = document.getElementById('debt-return').value + '%';
+  document.getElementById('val-dep-return').textContent  = document.getElementById('dep-return').value + '%';
+
+  // Slider progress
+  ['eq-return','debt-return','dep-return','tweak-equity','tweak-debt','tweak-deposit'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) updateSliderProgress(el);
+  });
+
+  const eqR   = +document.getElementById('eq-return').value;
+  const debtR = +document.getElementById('debt-return').value;
+  const depR  = +document.getElementById('dep-return').value;
+
+  // Blended return
+  const blended = (allocEquity * eqR + allocDebt * debtR + allocDeposit * depR) / 100;
+  document.getElementById('blended-return').textContent = blended.toFixed(1) + '%';
+
+  // Allocation bar
+  document.getElementById('bar-equity').style.width  = allocEquity + '%';
+  document.getElementById('bar-debt').style.width    = allocDebt + '%';
+  document.getElementById('bar-deposit').style.width = allocDeposit + '%';
+
+  document.getElementById('leg-equity').textContent  = 'Equity ' + allocEquity + '%';
+  document.getElementById('leg-debt').textContent    = 'Debt ' + allocDebt + '%';
+  document.getElementById('leg-deposit').textContent = 'Bank Deposits ' + allocDeposit + '%';
+
+  document.getElementById('tweak-eq-val').textContent   = allocEquity + '%';
+  document.getElementById('tweak-debt-val').textContent  = allocDebt + '%';
+  document.getElementById('tweak-dep-val').textContent   = allocDeposit + '%';
+
+  // Monthly split amounts — use the main SIP
+  const sipEl = document.getElementById('sip-amount').textContent;
+  // Re-calc raw SIP to split properly
+  const { sip } = calcSIPForReturn(blended);
+  const sipAmt = Math.ceil(sip);
+
+  document.getElementById('amt-equity').textContent  = fmt(Math.round(sipAmt * allocEquity / 100));
+  document.getElementById('amt-debt').textContent    = fmt(Math.round(sipAmt * allocDebt / 100));
+  document.getElementById('amt-deposit').textContent = fmt(Math.round(sipAmt * allocDeposit / 100));
+
+  document.getElementById('pct-equity').textContent  = allocEquity + '%';
+  document.getElementById('pct-debt').textContent    = allocDebt + '%';
+  document.getElementById('pct-deposit').textContent = allocDeposit + '%';
+
+  // Validate total
+  const total = allocEquity + allocDebt + allocDeposit;
+  const warn = document.getElementById('alloc-total-warn');
+  if (total !== 100) {
+    warn.textContent = `Total: ${total}% — should be 100%`;
+    warn.style.color = '#f87171';
+  } else {
+    warn.textContent = 'Total: 100% ✓';
+    warn.style.color = '#4ade80';
+  }
+}
+
+function tweakAlloc(changed) {
+  const eq   = +document.getElementById('tweak-equity').value;
+  const debt = +document.getElementById('tweak-debt').value;
+  const dep  = +document.getElementById('tweak-deposit').value;
+
+  // Clamp so the other two share remaining proportionally
+  let remaining = 100 - (changed === 'equity' ? eq : changed === 'debt' ? debt : dep);
+  if (remaining < 0) remaining = 0;
+
+  if (changed === 'equity') {
+    const total = debt + dep || 1;
+    allocEquity  = eq;
+    allocDebt    = Math.round(remaining * debt / total);
+    allocDeposit = 100 - allocEquity - allocDebt;
+    document.getElementById('tweak-debt').value    = allocDebt;
+    document.getElementById('tweak-deposit').value = allocDeposit;
+  } else if (changed === 'debt') {
+    const total = eq + dep || 1;
+    allocDebt    = debt;
+    allocEquity  = Math.round(remaining * eq / total);
+    allocDeposit = 100 - allocEquity - allocDebt;
+    document.getElementById('tweak-equity').value  = allocEquity;
+    document.getElementById('tweak-deposit').value = allocDeposit;
+  } else {
+    const total = eq + debt || 1;
+    allocDeposit = dep;
+    allocEquity  = Math.round(remaining * eq / total);
+    allocDebt    = 100 - allocEquity - allocDeposit;
+    document.getElementById('tweak-equity').value = allocEquity;
+    document.getElementById('tweak-debt').value   = allocDebt;
+  }
+
+  updateAlloc();
+}
+
+function refreshAllocSuggestion(yearsToRetire) {
+  const s = getSuggestedAlloc(yearsToRetire);
+  allocEquity  = s.eq;
+  allocDebt    = s.debt;
+  allocDeposit = s.dep;
+
+  document.getElementById('tweak-equity').value  = s.eq;
+  document.getElementById('tweak-debt').value    = s.debt;
+  document.getElementById('tweak-deposit').value = s.dep;
+
+  const badge = document.getElementById('alloc-badge');
+  badge.textContent = s.label;
+  badge.className = 'alloc-badge ' + s.profile;
+
+  updateAlloc();
+}
+// ── Reality Check ─────────────────────────────────────────────
+let realityChart = null;
+
+function updateReality() {
+  const canInvest = +document.getElementById('reality-invest').value;
+  document.getElementById('val-reality').textContent = canInvest.toLocaleString();
+  updateSliderProgress(document.getElementById('reality-invest'));
+
+  const age        = +document.getElementById('age').value;
+  const retireAge  = +document.getElementById('retireAge').value;
+  const lifeExp    = +document.getElementById('lifeExp').value;
+  const expense    = +document.getElementById('expense').value;
+  const inflation  = +document.getElementById('inflation').value;
+  const postReturn = +document.getElementById('postReturn').value;
+  const hasExisting = document.getElementById('hasExisting').checked;
+  const existing   = hasExisting ? +document.getElementById('existing').value : 0;
+
+  const yearsToRetire      = Math.max(1, retireAge - age);
+  const accMonths          = yearsToRetire * 12;
+  const retirementMonths   = Math.max(1, lifeExp - retireAge) * 12;
+  const rAcc               = currentReturn / 100 / 12;
+  const rPost              = postReturn / 100 / 12;
+  const inflMonthly        = inflation / 100 / 12;
+  const futureExpense      = expense * Math.pow(1 + inflation / 100, yearsToRetire);
+
+  // Build corpus at retirement with actual canInvest amount
+  const corpusAtRetirement = existing * Math.pow(1 + rAcc, accMonths) +
+    (rAcc === 0 ? canInvest * accMonths : canInvest * (Math.pow(1 + rAcc, accMonths) - 1) / rAcc);
+
+  // Simulate drawdown month by month — find how long corpus lasts
+  let balance = corpusAtRetirement;
+  let monthsSurvived = 0;
+  for (let m = 0; m < retirementMonths * 2; m++) { // go up to 2x in case surplus
+    const withdrawal = futureExpense * Math.pow(1 + inflMonthly, m);
+    balance = balance * (1 + rPost) - withdrawal;
+    if (balance <= 0) break;
+    monthsSurvived = m + 1;
+    if (m >= retirementMonths - 1) { monthsSurvived = retirementMonths; break; }
+  }
+
+  const yearsSurvived   = (monthsSurvived / 12).toFixed(1);
+  const ageAtDepletion  = retireAge + Math.floor(monthsSurvived / 12);
+  const shortfall       = retirementMonths - monthsSurvived; // months short
+  const isSafe          = monthsSurvived >= retirementMonths;
+
+  // Verdict
+  document.getElementById('verdict-danger').style.display = isSafe ? 'none' : 'block';
+  document.getElementById('verdict-safe').style.display   = isSafe ? 'block' : 'none';
+
+  if (!isSafe) {
+    const shortYears = (shortfall / 12).toFixed(1);
+    document.getElementById('verdict-danger-title').textContent =
+      `Corpus depletes at age ${ageAtDepletion}`;
+    document.getElementById('verdict-danger-body').innerHTML =
+      `With <span class="verdict-highlight">${canInvest.toLocaleString()}</span> monthly, your corpus lasts ` +
+      `<span class="verdict-highlight">${yearsSurvived} years</span> into retirement — ` +
+      `running out <span class="verdict-highlight">${shortYears} years early</span>, at age <span class="verdict-highlight">${ageAtDepletion}</span> instead of ${lifeExp}. ` +
+      `You need to either invest more, retire later, or plan for a lower monthly expense.`;
+  } else {
+    // Corpus survives — calculate sustainable monthly expense (solve for PMT that depletes corpus at life expectancy)
+    // Binary search: find max monthly expense (today's terms) such that corpus hits 0 at lifeExp
+    let lo = futureExpense, hi = futureExpense * 10;
+    for (let iter = 0; iter < 50; iter++) {
+      const mid = (lo + hi) / 2;
+      let b = corpusAtRetirement;
+      for (let m = 0; m < retirementMonths; m++) {
+        b = b * (1 + rPost) - mid * Math.pow(1 + inflMonthly, m);
+        if (b < 0) break;
+      }
+      if (b > 0) lo = mid; else hi = mid;
+    }
+    const sustainableMonthly = (lo + hi) / 2;
+    // Convert back to today's terms
+    const todayEquiv = sustainableMonthly / Math.pow(1 + inflation / 100, yearsToRetire);
+
+    document.getElementById('verdict-safe-body').innerHTML =
+      `With <span class="verdict-highlight">${canInvest.toLocaleString()}</span> monthly your corpus survives through age <span class="verdict-highlight">${lifeExp}</span>. ` +
+      `You can actually afford <span class="verdict-highlight">${fmt(sustainableMonthly)}/mo</span> at retirement ` +
+      `(equivalent to <span class="verdict-highlight">${fmt(todayEquiv)}/mo</span> in today's money) — ` +
+      `and your corpus will reach exactly zero at age ${lifeExp}.`;
+  }
+
+  // Draw reality chart
+  drawRealityChart(corpusAtRetirement, futureExpense, retirementMonths, retireAge, lifeExp, rPost, inflMonthly, isSafe, ageAtDepletion);
+}
+
+function drawRealityChart(corpusAtRetirement, futureExpense, retirementMonths, retireAge, lifeExp, rPost, inflMonthly, isSafe, ageAtDepletion) {
+  const labels = [], values = [];
+  const steps = Math.min(retirementMonths, 60);
+  const interval = Math.max(1, Math.ceil(retirementMonths / steps));
+
+  let b = corpusAtRetirement;
+  let depleted = false;
+  for (let m = 0; m <= retirementMonths; m += interval) {
+    labels.push(retireAge + Math.floor(m / 12));
+    // Simulate from start to m
+    let bal = corpusAtRetirement;
+    for (let i = 0; i < m; i++) {
+      bal = bal * (1 + rPost) - futureExpense * Math.pow(1 + inflMonthly, i);
+      if (bal < 0) { bal = 0; break; }
+    }
+    values.push(Math.round(Math.max(0, bal)));
+  }
+
+  const ctx = document.getElementById('realityChart').getContext('2d');
+  if (realityChart) realityChart.destroy();
+
+  const color = isSafe ? '#4ade80' : '#f87171';
+  const gradColor = isSafe ? 'rgba(74,222,128,' : 'rgba(248,113,113,';
+
+  const grad = ctx.createLinearGradient(0, 0, 0, 200);
+  grad.addColorStop(0, gradColor + '0.25)');
+  grad.addColorStop(1, gradColor + '0.02)');
+
+  realityChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Corpus',
+        data: values,
+        borderColor: color,
+        borderWidth: 2.5,
+        backgroundColor: grad,
+        fill: true,
+        tension: 0.4,
+        pointRadius: 0,
+        pointHoverRadius: 5,
+        pointHoverBackgroundColor: color,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' Corpus: ' + fmt(ctx.raw),
+            title: ctx => 'Age ' + ctx[0].label
+          },
+          backgroundColor: '#1a2236',
+          borderColor: isSafe ? 'rgba(74,222,128,0.3)' : 'rgba(248,113,113,0.3)',
+          borderWidth: 1,
+          titleColor: color,
+          bodyColor: '#e8e4da',
+          padding: 10,
+        }
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: { color: '#8892a4', font: { size: 11 }, maxTicksLimit: 8 }
+        },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: { color: '#8892a4', font: { size: 11 }, callback: v => fmt(v) }
+        }
+      }
+    }
+  });
+}
+// ─────────────────────────────────────────────────────────────
+
 // Init
 document.querySelectorAll('input[type="range"]').forEach(updateSliderProgress);
 update();
+updateReality();
+
 </script>
 </body>
 </html>
