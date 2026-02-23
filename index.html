@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Retire Rich · Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --navy: #0a0e1a;
+    --navy2: #111827;
+    --navy3: #1a2236;
+    --gold: #c9a84c;
+    --gold2: #f0cd7a;
+    --cream: #f5f0e8;
+    --text: #e8e4da;
+    --muted: #8892a4;
+    --green: #4ade80;
+    --red: #f87171;
+    --blue: #60a5fa;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Background texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+      radial-gradient(ellipse at 20% 20%, rgba(201,168,76,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(96,165,250,0.04) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 24px 20px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: fadeDown 0.6s ease both;
+  }
+
+  .header-tag {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .header h1 span { color: var(--gold); }
+
+  .header p {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 8px;
+    font-weight: 300;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--navy2);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease both;
+  }
+
+  .card:nth-child(2) { animation-delay: 0.05s; }
+  .card:nth-child(3) { animation-delay: 0.1s; }
+  .card:nth-child(4) { animation-delay: 0.15s; }
+
+  .card-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  /* Input groups */
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  .input-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .input-label span:first-child {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+  }
+
+  .input-value {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--cream);
+    background: var(--navy3);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 8px;
+    padding: 4px 10px;
+    min-width: 70px;
+    text-align: center;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    background: var(--navy3);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    background: var(--gold);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(201,168,76,0.4);
+    transition: box-shadow 0.2s;
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 14px rgba(201,168,76,0.7);
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, var(--gold) var(--progress, 0%), var(--navy3) var(--progress, 0%));
+    height: 4px;
+    border-radius: 2px;
+  }
+
+  /* Scenario pills */
+  .scenario-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .scenario-tab {
+    flex: 1;
+    min-width: calc(14% - 8px);
+    padding: 10px 4px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    color: var(--muted);
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .scenario-tab.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  .scenario-tab:hover:not(.active) {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text);
+  }
+
+  .scenario-return {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 2px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Result card */
+  .result-card {
+    background: linear-gradient(135deg, rgba(201,168,76,0.15), rgba(201,168,76,0.05));
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease 0.2s both;
+  }
+
+  .result-main {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .result-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+
+  .result-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+    transition: all 0.3s;
+  }
+
+  .result-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .result-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .result-item-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .result-item-value {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--cream);
+    font-family: 'Playfair Display', serif;
+  }
+
+  .result-item-value.green { color: var(--green); }
+  .result-item-value.gold { color: var(--gold2); }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin-bottom: 16px;
+  }
+
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .progress-bar-bg {
+    height: 8px;
+    background: var(--navy3);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--gold2));
+    border-radius: 4px;
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Chart */
+  .chart-wrap {
+    position: relative;
+    height: 260px;
+    margin-top: 8px;
+  }
+
+  /* Scenario comparison */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-top: 4px;
+  }
+
+  .compare-item {
+    border-radius: 10px;
+    padding: 12px 8px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .compare-item.highlight {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.06);
+  }
+
+  .compare-name {
+    font-size: 10px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .compare-sip {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px;
+    color: var(--cream);
+    font-weight: 700;
+  }
+
+  .compare-return {
+    font-size: 11px;
+    color: var(--gold);
+    margin-top: 2px;
+  }
+
+  /* Retirement Age slider special */
+  .age-display {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  /* Toggle for "existing corpus" */
+  .toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .toggle-label {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .toggle {
+    position: relative;
+    width: 44px;
+    height: 24px;
+  }
+
+  .toggle input { display: none; }
+
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--navy3);
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: 0.2s;
+  }
+
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    left: 2px;
+    top: 2px;
+    background: var(--muted);
+    border-radius: 50%;
+    transition: 0.2s;
+  }
+
+  .toggle input:checked + .toggle-slider {
+    background: rgba(201,168,76,0.2);
+    border-color: var(--gold);
+  }
+
+  .toggle input:checked + .toggle-slider::before {
+    transform: translateX(20px);
+    background: var(--gold);
+  }
+
+  .existing-corpus-wrap {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+  }
+
+  .existing-corpus-wrap.show {
+    max-height: 80px;
+  }
+
+  /* Keyframes */
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 8px;
+    opacity: 0.5;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-tag">Retirement Planner</div>
+    <h1>Retire <span>Rich</span></h1>
+    <p>Know exactly how much to invest today for a secure tomorrow</p>
+  </div>
+
+  <!-- Your Details -->
+  <div class="card">
+    <div class="card-title">Your Details</div>
+
+    <div class="input-group">
+      <div class="input-label">
+        <span>Current Age</span>
+        <span class="input-value" id="val-age">30</span>
+      </div>
+      <input type="range" id="age" min="18" max="60" value="30" oninput="update()">
+      <div class="age-display"><span>18</span><span>60</span></div>
+    </div>
+
+    <div class="input-group">
+      <div class="input-label">
+        <span>Retirement Age</span>
+        <span class="input-value" id="val-retireAge">60</span>
+      </div>
+      <input type="range" id="retireAge" min="40" max="75" value="60" oninput="update()">
+      <div class="age-display"><span>40</span><span>75</span></div>
+    </div>
+
+    <div class="input-group">
+      <div class="input-label">
+        <span>Life Expectancy</span>
+        <span class="input-value" id="val-lifeExp">85</span>
+      </div>
+      <input type="range" id="lifeExp" min="70" max="100" value="85" oninput="update()">
+      <div class="age-display"><span>70</span><span>100</span></div>
+    </div>
+  </div>
+
+  <!-- Financial Inputs -->
+  <div class="card">
+    <div class="card-title">Financial Inputs</div>
+
+    <div class="input-group">
+      <div class="input-label">
+        <span>Monthly Expenses (today)</span>
+        <span class="input-value" id="val-expense">3,000</span>
+      </div>
+      <input type="range" id="expense" min="500" max="50000" step="100" value="3000" oninput="update()">
+    </div>
+
+    <div class="input-group">
+      <div class="input-label">
+        <span>Inflation Rate (usually more than you think)</span>
+        <span class="input-value" id="val-inflation">6%</span>
+      </div>
+      <input type="range" id="inflation" min="2" max="12" step="0.5" value="6" oninput="update()">
+    </div>
+
+    <div class="input-group">
+      <div class="input-label">
+        <span>Post-Retirement Return (usually less than you think)</span>
+        <span class="input-value" id="val-postReturn">7%</span>
+      </div>
+      <input type="range" id="postReturn" min="3" max="12" step="0.5" value="7" oninput="update()">
+    </div>
+
+    <!-- Existing Corpus Toggle -->
+    <div class="toggle-row">
+      <span class="toggle-label">I have existing savings</span>
+      <label class="toggle">
+        <input type="checkbox" id="hasExisting" onchange="toggleExisting()">
+        <div class="toggle-slider"></div>
+      </label>
+    </div>
+
+    <div class="existing-corpus-wrap" id="existingWrap">
+      <div class="input-group">
+        <div class="input-label">
+          <span>Existing Corpus</span>
+          <span class="input-value" id="val-existing">10,000</span>
+        </div>
+        <input type="range" id="existing" min="0" max="20000000" step="50000" value="10000" oninput="update()">
+      </div>
+    </div>
+  </div>
+
+  <!-- Scenario -->
+  <div class="card">
+    <div class="card-title">INVESTMENT SCENARIO (usually less than you think)</div>
+    <div style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:12px;" id="scenario-tabs">
+      <button class="scenario-tab" data-return="7" onclick="setScenario(this)">7%</button>
+      <button class="scenario-tab" data-return="8" onclick="setScenario(this)">8%</button>
+      <button class="scenario-tab" data-return="9" onclick="setScenario(this)">9%</button>
+      <button class="scenario-tab active" data-return="10" onclick="setScenario(this)">10%</button>
+      <button class="scenario-tab" data-return="11" onclick="setScenario(this)">11%</button>
+      <button class="scenario-tab" data-return="12" onclick="setScenario(this)">12%</button>
+      <button class="scenario-tab" data-return="13" onclick="setScenario(this)">13%</button>
+    </div>
+    <div style="font-size:12px; color: var(--muted);">
+      Expected annual return on investments during accumulation phase.
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="result-card">
+    <div class="result-main">
+      <div class="result-label">Monthly Investment Needed</div>
+      <div class="result-amount" id="sip-amount">—</div>
+      <div class="result-sub">to retire comfortably</div>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-item">
+        <div class="result-item-label">Target Corpus</div>
+        <div class="result-item-value gold" id="corpus-amount">—</div>
+      </div>
+      <div class="result-item">
+        <div class="result-item-label">Years to Save</div>
+        <div class="result-item-value" id="years-left">—</div>
+      </div>
+      <div class="result-item">
+        <div class="result-item-label">Monthly @ Retirement</div>
+        <div class="result-item-value" id="future-expense">—</div>
+      </div>
+      <div class="result-item">
+        <div class="result-item-label">Total You Invest</div>
+        <div class="result-item-value green" id="total-invest">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Corpus Progress -->
+  <div class="card" style="animation-delay: 0.25s;">
+    <div class="card-title">Corpus Growth Projection</div>
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span>Now</span>
+        <span id="progress-pct">0%</span>
+        <span>Retirement</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="chart-wrap">
+      <canvas id="growthChart" height="260"></canvas>
+    </div>
+  </div>
+
+  <!-- Scenario Comparison -->
+  <div class="card" style="animation-delay: 0.3s;">
+    <div class="card-title">Scenario Comparison</div>
+    <div style="display:grid; grid-template-columns: repeat(4, 1fr); gap:8px; margin-top:4px;" id="compare-grid">
+      <div class="compare-item" id="cmp-7"><div class="compare-name">7%</div><div class="compare-sip compare-sip-val" id="cmp-7-sip">—</div></div>
+      <div class="compare-item" id="cmp-8"><div class="compare-name">8%</div><div class="compare-sip compare-sip-val" id="cmp-8-sip">—</div></div>
+      <div class="compare-item" id="cmp-9"><div class="compare-name">9%</div><div class="compare-sip compare-sip-val" id="cmp-9-sip">—</div></div>
+      <div class="compare-item" id="cmp-10"><div class="compare-name">10%</div><div class="compare-sip compare-sip-val" id="cmp-10-sip">—</div></div>
+      <div class="compare-item" id="cmp-11"><div class="compare-name">11%</div><div class="compare-sip compare-sip-val" id="cmp-11-sip">—</div></div>
+      <div class="compare-item" id="cmp-12"><div class="compare-name">12%</div><div class="compare-sip compare-sip-val" id="cmp-12-sip">—</div></div>
+      <div class="compare-item" id="cmp-13"><div class="compare-name">13%</div><div class="compare-sip compare-sip-val" id="cmp-13-sip">—</div></div>
+    </div>
+  </div>
+
+  <div class="footer">For educational purposes only · Not financial advice</div>
+</div>
+
+<script>
+let currentReturn = 10;
+let chart = null;
+
+function fmt(n) {
+  if (n >= 1e9) return (n/1e9).toFixed(2) + 'B';
+  if (n >= 1e6) return (n/1e6).toFixed(2) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
+  return Math.round(n).toLocaleString();
+}
+
+function updateSliderProgress(input) {
+  const min = +input.min, max = +input.max, val = +input.value;
+  const pct = ((val - min) / (max - min)) * 100;
+  input.style.setProperty('--progress', pct + '%');
+}
+
+function calcSIP(corpus, annualReturn, months, existingCorpus) {
+  const r = annualReturn / 100 / 12;
+  if (months <= 0) return 0;
+  const fvExisting = existingCorpus * Math.pow(1 + r, months);
+  const remaining = Math.max(0, corpus - fvExisting);
+  if (r === 0) return remaining / months;
+  return remaining * r / (Math.pow(1 + r, months) - 1);
+}
+
+function calcCorpus(monthlyExpense, annualInflation, annualPostReturn, yearsInRetirement) {
+  // Present value of annuity (inflation-adjusted)
+  const r = annualPostReturn / 100;
+  const g = annualInflation / 100;
+  const n = yearsInRetirement;
+  if (Math.abs(r - g) < 0.0001) {
+    return monthlyExpense * 12 * n;
+  }
+  // Real rate approach: corpus = PMT_annual * (1 - (1+g)^n/(1+r)^n) / (r-g)
+  const corpus = (monthlyExpense * 12) * (1 - Math.pow((1+g)/(1+r), n)) / (r - g);
+  return corpus;
+}
+
+function calcSIPForReturn(ret) {
+  const age = +document.getElementById('age').value;
+  const retireAge = +document.getElementById('retireAge').value;
+  const lifeExp = +document.getElementById('lifeExp').value;
+  const expense = +document.getElementById('expense').value;
+  const inflation = +document.getElementById('inflation').value;
+  const postReturn = +document.getElementById('postReturn').value;
+  const hasExisting = document.getElementById('hasExisting').checked;
+  const existing = hasExisting ? +document.getElementById('existing').value : 0;
+
+  const yearsToRetire = Math.max(1, retireAge - age);
+  const yearsInRetirement = Math.max(1, lifeExp - retireAge);
+  const months = yearsToRetire * 12;
+
+  const futureExpense = expense * Math.pow(1 + inflation/100, yearsToRetire);
+  const corpus = calcCorpus(futureExpense, inflation, postReturn, yearsInRetirement);
+  const sip = calcSIPForCorpus(corpus, ret, months, existing);
+  return { sip, corpus, futureExpense, months, yearsToRetire };
+}
+
+function calcSIPForCorpus(corpus, annualReturn, months, existingCorpus) {
+  const r = annualReturn / 100 / 12;
+  if (months <= 0) return 0;
+  const fvExisting = existingCorpus * Math.pow(1 + r, months);
+  const remaining = Math.max(0, corpus - fvExisting);
+  if (r === 0) return remaining / months;
+  return remaining * r / (Math.pow(1 + r, months) - 1);
+}
+
+function update() {
+  // Update display values
+  const sliders = ['age','retireAge','lifeExp','expense','inflation','postReturn','existing'];
+  sliders.forEach(id => {
+    const el = document.getElementById(id);
+    updateSliderProgress(el);
+  });
+
+  document.getElementById('val-age').textContent = document.getElementById('age').value;
+  document.getElementById('val-retireAge').textContent = document.getElementById('retireAge').value;
+  document.getElementById('val-lifeExp').textContent = document.getElementById('lifeExp').value;
+  document.getElementById('val-expense').textContent = Number(document.getElementById('expense').value).toLocaleString();
+  document.getElementById('val-inflation').textContent = document.getElementById('inflation').value + '%';
+  document.getElementById('val-postReturn').textContent = document.getElementById('postReturn').value + '%';
+  document.getElementById('val-existing').textContent = Number(document.getElementById('existing').value).toLocaleString();
+
+  const age = +document.getElementById('age').value;
+  const retireAge = +document.getElementById('retireAge').value;
+  const existing = document.getElementById('hasExisting').checked ? +document.getElementById('existing').value : 0;
+
+  const { sip, corpus, futureExpense, months, yearsToRetire } = calcSIPForReturn(currentReturn);
+
+  document.getElementById('sip-amount').textContent = fmt(Math.ceil(sip));
+  document.getElementById('corpus-amount').textContent = fmt(corpus);
+  document.getElementById('years-left').textContent = yearsToRetire + ' yrs';
+  document.getElementById('future-expense').textContent = fmt(futureExpense);
+  document.getElementById('total-invest').textContent = fmt(Math.ceil(sip) * months);
+
+  // Progress bar (existing vs corpus)
+  const existingPct = Math.min(99, (existing / corpus * 100));
+  document.getElementById('progress-bar').style.width = existingPct + '%';
+  document.getElementById('progress-pct').textContent = existingPct.toFixed(1) + '%';
+
+  // Scenario comparison
+  [7,8,9,10,11,12,13].forEach(ret => {
+    const res = calcSIPForReturn(ret);
+    document.getElementById(`cmp-${ret}-sip`).textContent = fmt(Math.ceil(res.sip));
+    const el = document.getElementById(`cmp-${ret}`);
+    el.classList.toggle('highlight', ret === currentReturn);
+  });
+
+  // Chart
+  drawChart(corpus, sip, months, age, retireAge, existing);
+}
+
+function drawChart(corpus, sip, months, age, retireAge, existing) {
+  const accumLabels = [];
+  const accumValues = [];
+  const drawLabels = [];
+  const drawValues = [];
+
+  const r = currentReturn / 100 / 12;
+  const inflation = +document.getElementById('inflation').value;
+  const postReturn = +document.getElementById('postReturn').value;
+  const rPost = postReturn / 100 / 12;
+  const lifeExp = +document.getElementById('lifeExp').value;
+  const retirementMonths = (lifeExp - retireAge) * 12;
+  const futureExpense = +document.getElementById('expense').value * Math.pow(1 + inflation/100, retireAge - age);
+
+  // --- Accumulation phase ---
+  const accSteps = Math.min(months, 60);
+  const accInterval = Math.max(1, Math.ceil(months / accSteps));
+  for (let m = 0; m <= months; m += accInterval) {
+    accumLabels.push(age + Math.floor(m / 12));
+    const fv = existing * Math.pow(1+r, m) + (r === 0 ? sip*m : sip * (Math.pow(1+r,m)-1)/r);
+    accumValues.push(Math.round(fv));
+  }
+  // ensure retirement age point
+  if (accumLabels[accumLabels.length-1] !== retireAge) {
+    const fv = existing * Math.pow(1+r, months) + (r === 0 ? sip*months : sip * (Math.pow(1+r,months)-1)/r);
+    accumLabels.push(retireAge);
+    accumValues.push(Math.round(fv));
+  }
+
+  // --- Drawdown phase ---
+  const drawSteps = Math.min(retirementMonths, 60);
+  const drawInterval = Math.max(1, Math.ceil(retirementMonths / drawSteps));
+  let balance = accumValues[accumValues.length - 1];
+  const inflationMonthly = inflation / 100 / 12;
+
+  for (let m = 0; m <= retirementMonths; m += drawInterval) {
+    drawLabels.push(retireAge + Math.floor(m / 12));
+    // Simulate month by month up to this point
+    let b = accumValues[accumValues.length - 1];
+    for (let i = 0; i < m; i++) {
+      const withdrawal = futureExpense * Math.pow(1 + inflationMonthly, i);
+      b = b * (1 + rPost) - withdrawal;
+      if (b < 0) { b = 0; break; }
+    }
+    drawValues.push(Math.round(Math.max(0, b)));
+  }
+
+  // Combine all labels (deduplicate retirement age)
+  const allLabels = [...accumLabels, ...drawLabels.slice(1)];
+  const allAccum = [...accumValues, ...new Array(drawLabels.length - 1).fill(null)];
+  const allDraw  = [...new Array(accumLabels.length - 1).fill(null), ...drawValues];
+
+  const ctx = document.getElementById('growthChart').getContext('2d');
+  if (chart) chart.destroy();
+
+  const gradAccum = ctx.createLinearGradient(0, 0, 0, 220);
+  gradAccum.addColorStop(0, 'rgba(201,168,76,0.3)');
+  gradAccum.addColorStop(1, 'rgba(201,168,76,0.02)');
+
+  const gradDraw = ctx.createLinearGradient(0, 0, 0, 220);
+  gradDraw.addColorStop(0, 'rgba(96,165,250,0.25)');
+  gradDraw.addColorStop(1, 'rgba(96,165,250,0.02)');
+
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: allLabels,
+      datasets: [
+        {
+          label: 'Accumulation',
+          data: allAccum,
+          borderColor: '#c9a84c',
+          borderWidth: 2.5,
+          backgroundColor: gradAccum,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#c9a84c',
+          spanGaps: false,
+        },
+        {
+          label: 'Drawdown',
+          data: allDraw,
+          borderColor: '#60a5fa',
+          borderWidth: 2.5,
+          backgroundColor: gradDraw,
+          fill: true,
+          tension: 0.4,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#60a5fa',
+          spanGaps: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          display: true,
+          position: 'top',
+          align: 'end',
+          labels: {
+            color: '#8892a4',
+            font: { size: 11, family: 'DM Sans' },
+            boxWidth: 12,
+            boxHeight: 2,
+            padding: 12,
+            usePointStyle: true,
+            pointStyle: 'line',
+          }
+        },
+        tooltip: {
+          callbacks: {
+            label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw),
+            title: ctx => 'Age ' + ctx[0].label
+          },
+          backgroundColor: '#1a2236',
+          borderColor: 'rgba(201,168,76,0.3)',
+          borderWidth: 1,
+          titleColor: '#c9a84c',
+          bodyColor: '#e8e4da',
+          padding: 10,
+          filter: item => item.raw !== null,
+        },
+        annotation: {}
+      },
+      scales: {
+        x: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: { color: '#8892a4', font: { size: 11 }, maxTicksLimit: 8 }
+        },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: {
+            color: '#8892a4',
+            font: { size: 11 },
+            callback: v => fmt(v)
+          }
+        }
+      }
+    }
+  });
+}
+
+function setScenario(btn) {
+  document.querySelectorAll('.scenario-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentReturn = +btn.dataset.return;
+  update();
+}
+
+function toggleExisting() {
+  const wrap = document.getElementById('existingWrap');
+  wrap.classList.toggle('show', document.getElementById('hasExisting').checked);
+  update();
+}
+
+// Init
+document.querySelectorAll('input[type="range"]').forEach(updateSliderProgress);
+update();
+</script>
+</body>
+</html>
