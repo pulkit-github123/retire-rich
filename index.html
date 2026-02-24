@@ -770,6 +770,885 @@
   .fmt-btn:hover:not(.active) {
     color: var(--text);
   }
+
+  /* ── Stress Test Section ─────────────────────────────────── */
+  .stress-card {
+    background: var(--navy2);
+    border: 1px solid rgba(248,113,113,0.15);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease 0.5s both;
+  }
+
+  .stress-card-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+
+  .stress-card-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    font-weight: 300;
+  }
+
+  /* Stress tabs */
+  .stress-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+
+  .stress-tab {
+    flex: 1;
+    padding: 9px 6px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    color: var(--muted);
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  .stress-tab.active {
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(248,113,113,0.08);
+  }
+
+  .stress-tab:hover:not(.active) {
+    border-color: rgba(255,255,255,0.2);
+    color: var(--text);
+  }
+
+  .stress-panel { display: none; }
+  .stress-panel.active { display: block; }
+
+  /* Monte Carlo */
+  .mc-result-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .mc-stat {
+    background: var(--navy3);
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .mc-stat-label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+
+  .mc-stat-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .mc-stat-value.green { color: var(--green); }
+  .mc-stat-value.gold  { color: var(--gold2); }
+  .mc-stat-value.red   { color: var(--red); }
+
+  .mc-stat-sub {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  /* Survival meter */
+  .survival-meter-wrap {
+    margin-bottom: 20px;
+  }
+
+  .survival-meter-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .survival-meter-bg {
+    height: 12px;
+    background: var(--navy3);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .survival-meter-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.8s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Fan chart */
+  .stress-chart-wrap {
+    position: relative;
+    height: 240px;
+    margin-top: 4px;
+  }
+
+  /* Sequence of returns */
+  .sor-scenarios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .sor-scenario-btn {
+    padding: 10px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    color: var(--muted);
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .sor-scenario-btn.active {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(201,168,76,0.08);
+  }
+
+  .sor-verdict {
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+
+  .sor-verdict.danger {
+    background: rgba(248,113,113,0.08);
+    border: 1px solid rgba(248,113,113,0.2);
+    color: var(--text);
+  }
+
+  .sor-verdict.moderate {
+    background: rgba(201,168,76,0.08);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--text);
+  }
+
+  .sor-verdict.safe {
+    background: rgba(74,222,128,0.08);
+    border: 1px solid rgba(74,222,128,0.2);
+    color: var(--text);
+  }
+
+  /* SWR */
+  .swr-result {
+    text-align: center;
+    padding: 20px;
+    background: var(--navy3);
+    border-radius: 14px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .swr-pct {
+    font-family: 'Playfair Display', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--gold2);
+    line-height: 1;
+  }
+
+  .swr-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .swr-monthly {
+    font-size: 13px;
+    color: var(--cream);
+    margin-top: 10px;
+  }
+
+  .swr-monthly span { color: var(--gold2); font-weight: 600; }
+
+  .swr-gauge-wrap {
+    margin-bottom: 16px;
+  }
+
+  .swr-zones {
+    display: flex;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .swr-zone { flex: 1; }
+  .swr-zone.danger   { background: var(--red); }
+  .swr-zone.caution  { background: var(--gold); }
+  .swr-zone.safe     { background: var(--green); }
+
+  .swr-zone-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  .swr-marker-wrap {
+    position: relative;
+    height: 16px;
+    margin-bottom: 4px;
+  }
+
+  .swr-marker {
+    position: absolute;
+    transform: translateX(-50%);
+    width: 3px;
+    height: 16px;
+    background: var(--cream);
+    border-radius: 2px;
+    transition: left 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .run-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--red);
+    background: rgba(248,113,113,0.08);
+    color: var(--red);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    margin-bottom: 16px;
+  }
+
+  .run-btn:hover {
+    background: rgba(248,113,113,0.15);
+  }
+
+  .run-btn.running {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .stress-highlight { color: var(--gold2); font-weight: 600; }
+  .stress-note {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 8px;
+    font-style: italic;
+  }
+
+  /* ── Safe Corpus Finder ───────────────────────────────────── */
+  .safe-corpus-card {
+    background: linear-gradient(135deg, rgba(74,222,128,0.08), rgba(74,222,128,0.02));
+    border: 1px solid rgba(74,222,128,0.25);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease 0.6s both;
+  }
+
+  .safe-corpus-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+
+  .safe-corpus-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 22px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .survival-slider-wrap {
+    margin-bottom: 24px;
+  }
+
+  .survival-slider-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .survival-slider-label span:first-child {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .survival-pct-badge {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 8px;
+    border: 1px solid rgba(74,222,128,0.3);
+    background: rgba(74,222,128,0.1);
+    color: var(--green);
+    transition: all 0.2s;
+  }
+
+  .survival-pct-badge.caution {
+    border-color: rgba(201,168,76,0.3);
+    background: rgba(201,168,76,0.1);
+    color: var(--gold2);
+  }
+
+  .survival-pct-badge.danger {
+    border-color: rgba(248,113,113,0.3);
+    background: rgba(248,113,113,0.1);
+    color: var(--red);
+  }
+
+  /* Survival track — coloured gradient */
+  #survivalSlider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    background: linear-gradient(to right,
+      #f87171 0%, #f87171 40%,
+      #f0cd7a 40%, #f0cd7a 65%,
+      #4ade80 65%, #4ade80 100%);
+  }
+
+  #survivalSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    background: var(--cream);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid var(--green);
+    box-shadow: 0 0 10px rgba(74,222,128,0.4);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .safe-corpus-result {
+    background: var(--navy3);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(74,222,128,0.15);
+  }
+
+  .safe-corpus-result-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .safe-corpus-item {
+    text-align: center;
+  }
+
+  .safe-corpus-item-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 5px;
+  }
+
+  .safe-corpus-item-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .safe-corpus-item-value.green  { color: var(--green); }
+  .safe-corpus-item-value.gold   { color: var(--gold2); }
+  .safe-corpus-item-value.red    { color: var(--red); }
+
+  .safe-corpus-gap {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 14px;
+    text-align: center;
+  }
+
+  .safe-corpus-gap-label {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .safe-corpus-gap-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .safe-corpus-gap-value.positive { color: var(--green); }
+  .safe-corpus-gap-value.negative { color: var(--red); }
+
+  .safe-corpus-gap-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 3px;
+  }
+
+  .safe-corpus-chart-wrap {
+    position: relative;
+    height: 220px;
+    margin-top: 4px;
+  }
+
+  .safe-run-btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: 1px solid var(--green);
+    background: rgba(74,222,128,0.08);
+    color: var(--green);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: all 0.2s;
+    margin-bottom: 20px;
+  }
+
+  .safe-run-btn:hover { background: rgba(74,222,128,0.15); }
+  .safe-run-btn.running { opacity: 0.6; cursor: not-allowed; }
+
+  .survival-zone-hints {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  /* ── Real Plan Card ──────────────────────────────────────── */
+  .real-plan-card {
+    background: linear-gradient(135deg, rgba(96,165,250,0.1), rgba(96,165,250,0.03));
+    border: 1px solid rgba(96,165,250,0.3);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease 0.7s both;
+  }
+
+  .real-plan-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 4px;
+  }
+
+  .real-plan-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 24px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  .real-plan-notice {
+    background: rgba(96,165,250,0.07);
+    border: 1px solid rgba(96,165,250,0.15);
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .real-plan-notice span { color: var(--blue); font-weight: 600; }
+
+  .real-plan-result-main {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 14px;
+    border: 1px solid rgba(96,165,250,0.15);
+  }
+
+  .real-plan-result-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+
+  .real-plan-result-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+    transition: all 0.3s;
+  }
+
+  .real-plan-result-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+
+  .real-plan-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .real-plan-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+
+  .real-plan-item-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .real-plan-item-value {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--cream);
+    font-family: 'Playfair Display', serif;
+  }
+
+  .real-plan-item-value.blue  { color: var(--blue); }
+  .real-plan-item-value.green { color: var(--green); }
+  .real-plan-item-value.gold  { color: var(--gold2); }
+  .real-plan-item-value.red   { color: var(--red); }
+
+  .real-plan-savings-wrap {
+    margin-bottom: 20px;
+  }
+
+  .real-plan-no-corpus {
+    text-align: center;
+    padding: 30px 20px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  .real-plan-no-corpus span {
+    display: block;
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  /* ── Crash Corpus Section ─────────────────────────────────── */
+  .crash-corpus-card {
+    background: linear-gradient(135deg, rgba(248,113,113,0.08), rgba(248,113,113,0.02));
+    border: 1px solid rgba(248,113,113,0.25);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    animation: fadeUp 0.5s ease 0.8s both;
+  }
+
+  .crash-corpus-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+
+  .crash-corpus-subtitle {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 22px;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+
+  /* Scenario selector grid */
+  .crash-scenario-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 22px;
+  }
+
+  .crash-scenario-pill {
+    padding: 12px 8px;
+    border-radius: 11px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+    color: var(--muted);
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  .crash-scenario-pill.active {
+    border-color: var(--red);
+    color: var(--red);
+    background: rgba(248,113,113,0.10);
+  }
+
+  .crash-scenario-pill:hover:not(.active) {
+    border-color: rgba(255,255,255,0.18);
+    color: var(--text);
+  }
+
+  .crash-scenario-pill .pill-icon { font-size: 16px; display: block; margin-bottom: 4px; }
+  .crash-scenario-pill .pill-desc { font-size: 9px; color: var(--muted); margin-top: 2px; display: block; }
+
+  /* Existing savings slider for crash section */
+  .crash-savings-wrap { margin-bottom: 20px; }
+
+  /* Summary comparison table */
+  .crash-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 12px;
+  }
+
+  .crash-table th {
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 8px 6px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-weight: 500;
+  }
+
+  .crash-table td {
+    padding: 10px 6px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    vertical-align: middle;
+  }
+
+  .crash-table tr:last-child td { border-bottom: none; }
+
+  .crash-table .scenario-name {
+    font-size: 12px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .crash-table .scenario-desc {
+    font-size: 10px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .crash-table .corpus-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .crash-table .sip-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .crash-table .badge {
+    display: inline-block;
+    font-size: 9px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+
+  .crash-table .badge.safe     { background: rgba(74,222,128,0.15); color: var(--green); }
+  .crash-table .badge.moderate { background: rgba(201,168,76,0.15); color: var(--gold2); }
+  .crash-table .badge.danger   { background: rgba(248,113,113,0.15); color: var(--red); }
+
+  /* Detail panel for selected scenario */
+  .crash-detail-panel {
+    background: var(--navy3);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(248,113,113,0.12);
+  }
+
+  .crash-detail-title {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 14px;
+  }
+
+  .crash-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .crash-detail-item { text-align: center; }
+
+  .crash-detail-label {
+    font-size: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .crash-detail-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .crash-detail-value.green { color: var(--green); }
+  .crash-detail-value.gold  { color: var(--gold2); }
+  .crash-detail-value.red   { color: var(--red); }
+  .crash-detail-value.blue  { color: var(--blue); }
+
+  /* Big SIP display */
+  .crash-sip-main {
+    text-align: center;
+    padding: 18px;
+    background: rgba(248,113,113,0.06);
+    border: 1px solid rgba(248,113,113,0.15);
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+
+  .crash-sip-label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 5px;
+  }
+
+  .crash-sip-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 38px;
+    font-weight: 700;
+    color: var(--cream);
+  }
+
+  .crash-sip-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 5px;
+  }
+
+  .crash-chart-wrap {
+    position: relative;
+    height: 220px;
+    margin-top: 4px;
+  }
+
+  .crash-savings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  /* ── Main Tabs ───────────────────────────────────────────── */
+  .main-tabs {
+    display: flex;
+    gap: 0;
+    margin-bottom: 20px;
+    background: var(--navy2);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+    padding: 4px;
+  }
+
+  .main-tab {
+    flex: 1;
+    padding: 12px 10px;
+    border-radius: 11px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-size: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.25s;
+    text-align: center;
+    letter-spacing: 0.3px;
+    line-height: 1.3;
+  }
+
+  .main-tab.active {
+    background: var(--navy3);
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  .main-tab:hover:not(.active) {
+    color: var(--text);
+  }
+
+  .main-tab-icon {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
 </style>
 </head>
 <body>
@@ -782,6 +1661,22 @@
     <p>Know exactly how much to invest today for a secure tomorrow</p>
   </div>
 
+
+  <!-- Main Tabs -->
+  <div class="main-tabs">
+    <button class="main-tab active" onclick="switchMainTab('plan', this)">
+      <span class="main-tab-icon">📊</span>My Plan (Happy Ideal Case)
+    </button>
+    <button class="main-tab" onclick="switchMainTab('stress', this)">
+      <span class="main-tab-icon">🎲</span>Stress Test (Lets be Practical!)
+    </button>
+    <button class="main-tab" onclick="switchMainTab('reality', this)">
+      <span class="main-tab-icon">⚡</span>Reality Check
+    </button>
+  </div>
+
+  <!-- Tab 1: My Plan -->
+  <div class="tab-pane active" id="tab-plan">
   <!-- Your Details -->
   <div class="card">
     <div class="card-title">Your Details</div>
@@ -863,7 +1758,7 @@
           <span>Existing Corpus</span>
           <span class="input-value" id="val-existing">10,000</span>
         </div>
-        <input type="range" id="existing" min="0" max="50000000" step="50000" value="10000" oninput="update()">
+        <input type="range" id="existing" min="0" max="50000000" step="50000" value="10000" oninput="syncExisting('existing'); update()">
       </div>
     </div>
   </div>
@@ -928,142 +1823,383 @@
     </div>
   </div>
 
-  <!-- Asset Allocation -->
-  <div class="card" id="alloc-card" style="animation-delay: 0.35s;">
-    <div class="card-title">Suggested Asset Allocation</div>
 
-    <!-- Profile badge -->
-    <div id="alloc-badge" class="alloc-badge moderate">Moderate Profile · 10–20 yrs to retirement</div>
 
-    <!-- Visual bar -->
-    <div class="alloc-bar-wrap">
-      <div class="alloc-bar">
-        <div class="alloc-bar-seg equity"  id="bar-equity"  style="width:60%"></div>
-        <div class="alloc-bar-seg debt"    id="bar-debt"    style="width:30%"></div>
-        <div class="alloc-bar-seg deposit" id="bar-deposit" style="width:10%"></div>
-      </div>
-      <div class="alloc-legend">
-        <div class="alloc-legend-item"><div class="alloc-dot equity"></div><span id="leg-equity">Equity 60%</span></div>
-        <div class="alloc-legend-item"><div class="alloc-dot debt"></div><span id="leg-debt">Debt 30%</span></div>
-        <div class="alloc-legend-item"><div class="alloc-dot deposit"></div><span id="leg-deposit">Bank Deposits 10%</span></div>
-      </div>
-    </div>
 
-    <!-- Expected returns per asset -->
-    <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:12px;">Expected Returns Per Asset</div>
-    <div class="asset-return-grid">
-      <div class="asset-return-item equity-item">
-        <div class="asset-name equity">Equity</div>
-        <div class="asset-return-val" id="val-eq-return">12%</div>
-        <input type="range" id="eq-return" min="6" max="20" step="0.5" value="12" oninput="updateAlloc()">
-      </div>
-      <div class="asset-return-item debt-item">
-        <div class="asset-name debt">Debt</div>
-        <div class="asset-return-val" id="val-debt-return">8%</div>
-        <input type="range" id="debt-return" min="4" max="14" step="0.5" value="8" oninput="updateAlloc()">
-      </div>
-      <div class="asset-return-item deposit-item">
-        <div class="asset-name deposit">Deposits</div>
-        <div class="asset-return-val" id="val-dep-return">6%</div>
-        <input type="range" id="dep-return" min="3" max="10" step="0.5" value="6" oninput="updateAlloc()">
-      </div>
-    </div>
+  </div><!-- /tab-plan -->
 
-    <!-- Blended return -->
-    <div class="blended-return">
-      <div>
-        <div class="blended-label">Blended Portfolio Return</div>
-        <div style="font-size:11px; color:var(--muted); margin-top:2px;">Weighted average across all assets</div>
-      </div>
-      <div class="blended-value" id="blended-return">—</div>
-    </div>
+  <!-- Tab 3: Reality Check -->
+  <div class="tab-pane" id="tab-reality">
 
-    <!-- Tweaker -->
-    <div class="alloc-tweaker">
-      <div class="alloc-tweaker-title">Adjust Allocation</div>
-
-      <div class="alloc-slider-row">
-        <div class="alloc-slider-label">
-          <span style="color:var(--green)">Equity</span>
-          <span style="color:var(--cream)" id="tweak-eq-val">60%</span>
-        </div>
-        <input type="range" id="tweak-equity" min="0" max="100" step="5" value="60" oninput="tweakAlloc('equity')">
-      </div>
-
-      <div class="alloc-slider-row">
-        <div class="alloc-slider-label">
-          <span style="color:var(--gold)">Debt Funds</span>
-          <span style="color:var(--cream)" id="tweak-debt-val">30%</span>
-        </div>
-        <input type="range" id="tweak-debt" min="0" max="100" step="5" value="30" oninput="tweakAlloc('debt')">
-      </div>
-
-      <div class="alloc-slider-row">
-        <div class="alloc-slider-label">
-          <span style="color:var(--blue)">Bank Deposits</span>
-          <span style="color:var(--cream)" id="tweak-dep-val">10%</span>
-        </div>
-        <input type="range" id="tweak-deposit" min="0" max="100" step="5" value="10" oninput="tweakAlloc('deposit')">
-      </div>
-
-      <div style="font-size:11px; color:var(--muted); text-align:right; margin-top:-6px;" id="alloc-total-warn"></div>
-    </div>
-
-    <!-- Monthly split -->
-    <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-top:20px; margin-bottom:10px;">Monthly Investment Split</div>
-    <div class="alloc-amount-grid">
-      <div class="alloc-amount-item equity-item">
-        <div class="alloc-amount-label equity">Equity</div>
-        <div class="alloc-amount-val" id="amt-equity">—</div>
-        <div class="alloc-amount-pct" id="pct-equity">60%</div>
-      </div>
-      <div class="alloc-amount-item debt-item">
-        <div class="alloc-amount-label debt">Debt</div>
-        <div class="alloc-amount-val" id="amt-debt">—</div>
-        <div class="alloc-amount-pct" id="pct-debt">30%</div>
-      </div>
-      <div class="alloc-amount-item deposit-item">
-        <div class="alloc-amount-label deposit">Bank Dep.</div>
-        <div class="alloc-amount-val" id="amt-deposit">—</div>
-        <div class="alloc-amount-pct" id="pct-deposit">10%</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Reality Check -->
-  <div class="reality-card">
-    <div class="reality-card-title">⚡ Reality Check</div>
-    <div class="reality-subtitle">Tell us what you can actually invest monthly and we'll show you the truth.</div>
-
-    <!-- Can-invest slider + number input -->
+  <!-- Shared slider -->
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-title">⚡ Reality Check</div>
+    <div style="font-size:13px; color:var(--muted); margin-bottom:16px; line-height:1.6;">Tell us what you can actually invest monthly — and we'll show how it holds up against each scenario.</div>
     <div class="reality-slider-wrap">
       <div class="input-label" style="margin-bottom:10px;">
         <span style="font-size:13px; color:var(--muted);">I can invest monthly</span>
         <span class="input-value" id="val-reality">1,000</span>
       </div>
-      <input type="range" id="reality-invest" min="100" max="150000" step="100" value="1000" oninput="updateReality()">
-      <div class="age-display"><span>100</span><span>1,50,000</span></div>
+      <input type="range" id="reality-invest" min="100" max="300000" step="100" value="1000" oninput="updateReality()">
+      <div class="age-display"><span>₹100</span><span>₹3,00,000</span></div>
     </div>
+  </div>
 
-    <!-- Verdict -->
+  <!-- Section 1: vs Happy Ideal Case -->
+  <div class="reality-card">
+    <div class="reality-card-title">📊 vs Happy Ideal Case</div>
+    <div class="reality-subtitle">How does your investment compare to the SIP needed under perfect, assumed conditions?</div>
+
     <div class="reality-verdict danger" id="verdict-danger">
       <div class="verdict-icon">⚠️</div>
       <div class="verdict-headline danger" id="verdict-danger-title">You'll run out of money</div>
       <div class="verdict-body" id="verdict-danger-body"></div>
     </div>
-
     <div class="reality-verdict safe" id="verdict-safe">
       <div class="verdict-icon">✅</div>
       <div class="verdict-headline safe">You're on track — and then some!</div>
       <div class="verdict-body" id="verdict-safe-body"></div>
     </div>
 
-    <!-- Reality Chart -->
     <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; margin-top:16px;">Corpus Trajectory With Your Investment</div>
     <div class="reality-chart-wrap">
       <canvas id="realityChart"></canvas>
     </div>
   </div>
+
+  <!-- Section 2: vs Monte Carlo Safe Corpus -->
+  <div class="reality-card">
+    <div class="reality-card-title">🎲 vs Stress Tested Monte Carlo</div>
+    <div class="reality-subtitle">How does your investment hold up against the Monte Carlo safe corpus? Run the Safe Corpus finder in the Stress Test tab first.</div>
+
+    <div id="rc-mc-result">
+      <div class="reality-verdict danger" id="rc-mc-verdict-danger">
+        <div class="verdict-icon">⚠️</div>
+        <div class="verdict-headline danger" id="rc-mc-danger-title">Insufficient for Monte Carlo survival</div>
+        <div class="verdict-body" id="rc-mc-danger-body"></div>
+      </div>
+      <div class="reality-verdict safe" id="rc-mc-verdict-safe">
+        <div class="verdict-icon">✅</div>
+        <div class="verdict-headline safe">Beats the Monte Carlo target!</div>
+        <div class="verdict-body" id="rc-mc-safe-body"></div>
+      </div>
+      <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; margin-top:16px;">Your Corpus vs Monte Carlo Safe Corpus</div>
+      <div class="reality-chart-wrap">
+        <canvas id="rcMcChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 3: vs Bad Sequence Crash Corpus -->
+  <div class="reality-card">
+    <div class="reality-card-title">📉 vs Stress Tested Bad Sequence</div>
+    <div class="reality-subtitle">How does your investment hold up if markets crash right when you retire? Compared against the worst-case corpus requirement.</div>
+
+    <div class="reality-verdict danger" id="rc-bs-verdict-danger">
+      <div class="verdict-icon">⚠️</div>
+      <div class="verdict-headline danger" id="rc-bs-danger-title">Insufficient for crash survival</div>
+      <div class="verdict-body" id="rc-bs-danger-body"></div>
+    </div>
+    <div class="reality-verdict safe" id="rc-bs-verdict-safe">
+      <div class="verdict-icon">✅</div>
+      <div class="verdict-headline safe">You can survive the crash!</div>
+      <div class="verdict-body" id="rc-bs-safe-body"></div>
+    </div>
+    <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:8px; margin-top:16px;">Your Corpus vs Crash Scenario Required</div>
+    <div class="reality-chart-wrap">
+      <canvas id="rcBsChart"></canvas>
+    </div>
+  </div>
+
+  </div><!-- /tab-reality -->
+
+  <!-- Tab 2: Stress Test -->
+  <div class="tab-pane" id="tab-stress">
+
+
+
+
+  <!-- ── Safe Corpus Finder ─────────────────────────────────── -->
+  <div class="safe-corpus-card">
+    <div class="safe-corpus-title">🛡️ How Much Corpus Do You Really Need?</div>
+    <div class="safe-corpus-subtitle">
+      Set your desired survival probability — the chance your money outlives you —
+      and we'll run 1,000 simulations to find the corpus that achieves exactly that.
+    </div>
+
+    <!-- Survival probability slider -->
+    <div class="survival-slider-wrap">
+      <div class="survival-slider-label">
+        <span>I want my money to survive with probability</span>
+        <div class="survival-pct-badge" id="survival-badge">90%</div>
+      </div>
+      <input type="range" id="survivalSlider" min="50" max="99" step="1" value="90"
+             oninput="onSurvivalSliderMove()">
+      <div class="survival-zone-hints">
+        <span>50% — Coin flip</span>
+        <span>75% — Cautious</span>
+        <span>90% — Prudent</span>
+        <span>99% — Fort Knox</span>
+      </div>
+    </div>
+
+    <button class="safe-run-btn" id="safe-run-btn" onclick="runSafeCorpus()">
+      🛡️ FIND MY SAFE CORPUS
+    </button>
+
+    <!-- Result -->
+    <div id="safe-corpus-result-wrap" style="display:none;">
+      <div class="safe-corpus-result">
+        <div class="safe-corpus-result-row">
+          <div class="safe-corpus-item">
+            <div class="safe-corpus-item-label">Safe Corpus Needed</div>
+            <div class="safe-corpus-item-value green" id="sc-safe-corpus">—</div>
+          </div>
+          <div class="safe-corpus-item">
+            <div class="safe-corpus-item-label">Your Planned Corpus</div>
+            <div class="safe-corpus-item-value gold" id="sc-planned-corpus">—</div>
+          </div>
+        </div>
+        <div class="safe-corpus-result-row">
+          <div class="safe-corpus-item">
+            <div class="safe-corpus-item-label">Survival Rate Achieved</div>
+            <div class="safe-corpus-item-value green" id="sc-achieved-rate">—</div>
+          </div>
+          <div class="safe-corpus-item">
+            <div class="safe-corpus-item-label">Extra Monthly SIP Needed</div>
+            <div class="safe-corpus-item-value" id="sc-extra-sip">—</div>
+          </div>
+        </div>
+        <div class="safe-corpus-gap">
+          <div class="safe-corpus-gap-label">Corpus Gap</div>
+          <div class="safe-corpus-gap-value" id="sc-gap">—</div>
+          <div class="safe-corpus-gap-sub" id="sc-gap-sub"></div>
+        </div>
+      </div>
+
+      <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:8px;">
+        Fan Chart — Safe Corpus vs Your Plan
+      </div>
+      <div class="safe-corpus-chart-wrap">
+        <canvas id="safeCorpusChart"></canvas>
+      </div>
+      <div class="stress-note" style="margin-top:8px;">
+        Green band = scenarios where safe corpus survives · Red = scenarios where planned corpus fails
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── Real Plan: SIP Based on Safe Corpus ─────────────────── -->
+  <div class="real-plan-card" id="real-plan-card">
+    <div class="real-plan-title">📋 Your Real Investment Plan</div>
+    <div class="real-plan-subtitle">
+      Based on the safe corpus from above, here is what you actually need to invest every month —
+      after accounting for what you already have saved.
+    </div>
+
+    <!-- Notice if safe corpus not yet computed -->
+    <div id="real-plan-notice" class="real-plan-notice">
+      ⬆ Run the <span>Safe Corpus Finder</span> above first to unlock this section with your personalised numbers.
+    </div>
+
+    <!-- Existing savings slider — always visible -->
+    <div class="real-plan-savings-wrap">
+      <div class="input-group">
+        <div class="input-label">
+          <span style="font-size:13px; color:var(--muted);">My existing savings / investments today</span>
+          <span class="input-value" id="val-real-existing">0</span>
+        </div>
+        <input type="range" id="real-existing" min="0" max="50000000" step="50000" value="0"
+               oninput="syncExisting('real-existing'); updateRealPlan()">
+        <div class="age-display"><span>0</span><span>5 Cr</span></div>
+      </div>
+    </div>
+
+    <!-- Result — shown only after safe corpus is computed -->
+    <div id="real-plan-result" style="display:none;">
+
+      <div class="real-plan-result-main">
+        <div class="real-plan-result-label">Real Monthly Investment Needed</div>
+        <div class="real-plan-result-amount" id="rp-sip">—</div>
+        <div class="real-plan-result-sub" id="rp-sip-sub">based on your safe corpus target</div>
+      </div>
+
+      <div class="real-plan-grid">
+        <div class="real-plan-item">
+          <div class="real-plan-item-label">Safe Corpus Target</div>
+          <div class="real-plan-item-value blue" id="rp-safe-corpus">—</div>
+        </div>
+        <div class="real-plan-item">
+          <div class="real-plan-item-label">Existing Savings</div>
+          <div class="real-plan-item-value green" id="rp-existing">—</div>
+        </div>
+        <div class="real-plan-item">
+          <div class="real-plan-item-label">Savings Cover</div>
+          <div class="real-plan-item-value" id="rp-cover">—</div>
+        </div>
+        <div class="real-plan-item">
+          <div class="real-plan-item-label">Still Need to Build</div>
+          <div class="real-plan-item-value gold" id="rp-gap">—</div>
+        </div>
+      </div>
+
+      <div class="real-plan-grid">
+        <div class="real-plan-item">
+          <div class="real-plan-item-label">Years to Build</div>
+          <div class="real-plan-item-value" id="rp-years">—</div>
+        </div>
+        <div class="real-plan-item">
+          <div class="real-plan-item-label">Survival Probability</div>
+          <div class="real-plan-item-value green" id="rp-survival">—</div>
+        </div>
+        <div class="real-plan-item">
+          <div class="real-plan-item-label">vs. Basic Plan SIP</div>
+          <div class="real-plan-item-value" id="rp-vs-basic">—</div>
+        </div>
+        <div class="real-plan-item">
+          <div class="real-plan-item-label">Total You'll Invest</div>
+          <div class="real-plan-item-value" id="rp-total">—</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Placeholder if safe corpus not run yet -->
+    <div id="real-plan-placeholder" style="display:none;">
+      <div class="real-plan-no-corpus">
+        <span>🔒</span>
+        Run the Safe Corpus Finder above to unlock your personalised real plan.
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ── Crash Corpus Finder ────────────────────────────────── -->
+  <div class="crash-corpus-card">
+    <div class="crash-corpus-title">💥 Corpus Needed to Survive a Market Crash</div>
+    <div class="crash-corpus-subtitle">
+      What if markets crash right when you retire? Here's the minimum corpus you need
+      to still have money at age <span id="cc-lifeexp-label">—</span>, for each crash scenario —
+      and the monthly SIP to get there.
+    </div>
+
+    <!-- Scenario selector -->
+    <div class="crash-scenario-grid">
+      <button class="crash-scenario-pill active" onclick="setCrashDetail('mild', this)">
+        <span class="pill-icon">📉</span>
+        Mild Correction
+        <span class="pill-desc">−20% in Year 1</span>
+      </button>
+      <button class="crash-scenario-pill" onclick="setCrashDetail('severe', this)">
+        <span class="pill-icon">📉📉</span>
+        Severe Crash
+        <span class="pill-desc">−40% in Year 1</span>
+      </button>
+      <button class="crash-scenario-pill" onclick="setCrashDetail('prolonged', this)">
+        <span class="pill-icon">📉📉📉</span>
+        Lost Decade
+        <span class="pill-desc">−10% for 3 Years</span>
+      </button>
+    </div>
+
+    <!-- Existing savings slider -->
+    <div class="crash-savings-wrap">
+      <div class="input-group">
+        <div class="input-label">
+          <span style="font-size:13px; color:var(--muted);">My existing savings / investments today</span>
+          <span class="input-value" id="val-cc-existing">0</span>
+        </div>
+        <input type="range" id="cc-existing" min="0" max="50000000" step="50000" value="0"
+               oninput="syncExisting('cc-existing'); updateCrashCorpus()">
+        <div class="age-display"><span>0</span><span>5 Cr</span></div>
+      </div>
+    </div>
+
+    <!-- All-scenarios summary table -->
+    <div style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:var(--muted); margin-bottom:10px;">
+      All Scenarios at a Glance
+    </div>
+    <table class="crash-table" id="cc-table">
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>Corpus Needed</th>
+          <th>Monthly SIP</th>
+          <th>Risk</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="cc-row-base">
+          <td>
+            <div class="scenario-name">Base Case</div>
+            <div class="scenario-desc">No crash, normal returns</div>
+          </td>
+          <td><div class="corpus-val" id="cc-corpus-base">—</div></td>
+          <td><div class="sip-val" id="cc-sip-base">—</div></td>
+          <td><span class="badge safe">Low</span></td>
+        </tr>
+        <tr id="cc-row-mild">
+          <td>
+            <div class="scenario-name">Mild Correction</div>
+            <div class="scenario-desc">−20% in Year 1</div>
+          </td>
+          <td><div class="corpus-val" id="cc-corpus-mild">—</div></td>
+          <td><div class="sip-val" id="cc-sip-mild">—</div></td>
+          <td><span class="badge moderate">Medium</span></td>
+        </tr>
+        <tr id="cc-row-severe">
+          <td>
+            <div class="scenario-name">Severe Crash</div>
+            <div class="scenario-desc">−40% in Year 1 (2008)</div>
+          </td>
+          <td><div class="corpus-val" id="cc-corpus-severe">—</div></td>
+          <td><div class="sip-val" id="cc-sip-severe">—</div></td>
+          <td><span class="badge danger">High</span></td>
+        </tr>
+        <tr id="cc-row-prolonged">
+          <td>
+            <div class="scenario-name">Lost Decade</div>
+            <div class="scenario-desc">−10% for 3 Years</div>
+          </td>
+          <td><div class="corpus-val" id="cc-corpus-prolonged">—</div></td>
+          <td><div class="sip-val" id="cc-sip-prolonged">—</div></td>
+          <td><span class="badge danger">Severe</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Selected scenario detail -->
+    <div class="crash-detail-panel">
+      <div class="crash-detail-title" id="cc-detail-title">📉 Mild Correction Detail</div>
+      <div class="crash-detail-grid">
+        <div class="crash-detail-item">
+          <div class="crash-detail-label">Corpus Needed</div>
+          <div class="crash-detail-value red" id="cc-detail-corpus">—</div>
+        </div>
+        <div class="crash-detail-item">
+          <div class="crash-detail-label">vs. Base Corpus</div>
+          <div class="crash-detail-value gold" id="cc-detail-extra">—</div>
+        </div>
+        <div class="crash-detail-item">
+          <div class="crash-detail-label">Existing Savings Cover</div>
+          <div class="crash-detail-value" id="cc-detail-cover">—</div>
+        </div>
+        <div class="crash-detail-item">
+          <div class="crash-detail-label">Still Need to Build</div>
+          <div class="crash-detail-value gold" id="cc-detail-gap">—</div>
+        </div>
+      </div>
+      <div class="crash-sip-main">
+        <div class="crash-sip-label">Monthly SIP Needed</div>
+        <div class="crash-sip-amount" id="cc-detail-sip">—</div>
+        <div class="crash-sip-sub" id="cc-detail-sip-sub"></div>
+      </div>
+    </div>
+
+  </div>
+
+  </div><!-- /tab-stress -->
 
   <div class="footer">For educational purposes only · Not financial advice</div>
 </div>
@@ -1197,6 +2333,8 @@ function update() {
 
   // Keep reality check in sync
   updateReality();
+  refreshStressIfVisible();
+  updateCrashCorpus();
 }
 
 function drawChart(corpus, sip, months, age, retireAge, existing) {
@@ -1369,108 +2507,20 @@ function getSuggestedAlloc(yearsToRetire) {
                            return { eq: 20, debt: 40, dep: 40, profile: 'conservative', label: 'Conservative Profile · Under 5 yrs to retirement' };
 }
 
-function updateAlloc() {
-  document.getElementById('val-eq-return').textContent   = document.getElementById('eq-return').value + '%';
-  document.getElementById('val-debt-return').textContent = document.getElementById('debt-return').value + '%';
-  document.getElementById('val-dep-return').textContent  = document.getElementById('dep-return').value + '%';
-
-  ['eq-return','debt-return','dep-return','tweak-equity','tweak-debt','tweak-deposit'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) updateSliderProgress(el);
-  });
-
-  const eqR   = +document.getElementById('eq-return').value;
-  const debtR = +document.getElementById('debt-return').value;
-  const depR  = +document.getElementById('dep-return').value;
-
-  const blended = (allocEquity*eqR + allocDebt*debtR + allocDeposit*depR) / 100;
-  document.getElementById('blended-return').textContent = blended.toFixed(1) + '%';
-
-  document.getElementById('bar-equity').style.width  = allocEquity + '%';
-  document.getElementById('bar-debt').style.width    = allocDebt + '%';
-  document.getElementById('bar-deposit').style.width = allocDeposit + '%';
-
-  document.getElementById('leg-equity').textContent  = 'Equity ' + allocEquity + '%';
-  document.getElementById('leg-debt').textContent    = 'Debt ' + allocDebt + '%';
-  document.getElementById('leg-deposit').textContent = 'Bank Deposits ' + allocDeposit + '%';
-
-  document.getElementById('tweak-eq-val').textContent  = allocEquity + '%';
-  document.getElementById('tweak-debt-val').textContent = allocDebt + '%';
-  document.getElementById('tweak-dep-val').textContent  = allocDeposit + '%';
-
-  const { sip } = calcSIPForReturn(blended);
-  const sipAmt = Math.ceil(sip);
-
-  document.getElementById('amt-equity').textContent  = fmt(sipAmt * allocEquity / 100);
-  document.getElementById('amt-debt').textContent    = fmt(sipAmt * allocDebt / 100);
-  document.getElementById('amt-deposit').textContent = fmt(sipAmt * allocDeposit / 100);
-
-  document.getElementById('pct-equity').textContent  = allocEquity + '%';
-  document.getElementById('pct-debt').textContent    = allocDebt + '%';
-  document.getElementById('pct-deposit').textContent = allocDeposit + '%';
-
-  const total = allocEquity + allocDebt + allocDeposit;
-  const warn = document.getElementById('alloc-total-warn');
-  if (total !== 100) {
-    warn.textContent = `Total: ${total}% — should be 100%`;
-    warn.style.color = '#f87171';
-  } else {
-    warn.textContent = 'Total: 100% ✓';
-    warn.style.color = '#4ade80';
-  }
-}
-
-function tweakAlloc(changed) {
-  const eq   = +document.getElementById('tweak-equity').value;
-  const debt = +document.getElementById('tweak-debt').value;
-  const dep  = +document.getElementById('tweak-deposit').value;
-
-  let remaining = Math.max(0, 100 - (changed === 'equity' ? eq : changed === 'debt' ? debt : dep));
-
-  if (changed === 'equity') {
-    const total = debt + dep || 1;
-    allocEquity  = eq;
-    allocDebt    = Math.round(remaining * debt / total);
-    allocDeposit = 100 - allocEquity - allocDebt;
-    document.getElementById('tweak-debt').value    = allocDebt;
-    document.getElementById('tweak-deposit').value = allocDeposit;
-  } else if (changed === 'debt') {
-    const total = eq + dep || 1;
-    allocDebt    = debt;
-    allocEquity  = Math.round(remaining * eq / total);
-    allocDeposit = 100 - allocEquity - allocDebt;
-    document.getElementById('tweak-equity').value  = allocEquity;
-    document.getElementById('tweak-deposit').value = allocDeposit;
-  } else {
-    const total = eq + debt || 1;
-    allocDeposit = dep;
-    allocEquity  = Math.round(remaining * eq / total);
-    allocDebt    = 100 - allocEquity - allocDeposit;
-    document.getElementById('tweak-equity').value = allocEquity;
-    document.getElementById('tweak-debt').value   = allocDebt;
-  }
-
-  updateAlloc();
-}
+function updateAlloc() { /* Asset Allocation section removed */ }
+function tweakAlloc(changed) { /* Asset Allocation section removed */ }
 
 function refreshAllocSuggestion(yearsToRetire) {
+  // Update allocation variables only (UI elements removed)
   const s = getSuggestedAlloc(yearsToRetire);
   allocEquity  = s.eq;
   allocDebt    = s.debt;
   allocDeposit = s.dep;
-
-  document.getElementById('tweak-equity').value  = s.eq;
-  document.getElementById('tweak-debt').value    = s.debt;
-  document.getElementById('tweak-deposit').value = s.dep;
-
-  const badge = document.getElementById('alloc-badge');
-  badge.textContent = s.label;
-  badge.className = 'alloc-badge ' + s.profile;
-
-  updateAlloc();
 }
 // ── Reality Check ─────────────────────────────────────────────
 let realityChart = null;
+let rcMcChart    = null;
+let rcBsChart    = null;
 
 function updateReality() {
   const canInvest = +document.getElementById('reality-invest').value;
@@ -1498,26 +2548,24 @@ function updateReality() {
   const corpusAtRetirement = existing * Math.pow(1 + rAcc, accMonths) +
     (rAcc === 0 ? canInvest * accMonths : canInvest * (Math.pow(1 + rAcc, accMonths) - 1) / rAcc);
 
-  // Simulate drawdown month by month (withdraw at START of month, then invest)
-  // matching Excel model: F_m = E_m - D_m, then F_m * (1+r) = balance for next month
+  // ── Section 1: vs Happy Ideal Case ───────────────────────────
   let balance = corpusAtRetirement;
   let monthsSurvived = 0;
-  const totalMonths = retirementMonths + 1; // +1 to match Excel's n = years*12+1
+  const totalMonths = retirementMonths + 1;
   for (let m = 0; m < totalMonths * 2; m++) {
     const withdrawal = futureExpense * Math.pow(1 + inflMonthly, m);
-    balance = balance - withdrawal;         // withdraw first
+    balance = balance - withdrawal;
     if (balance <= 0) break;
-    balance = balance * (1 + rPost);        // then invest
+    balance = balance * (1 + rPost);
     monthsSurvived = m + 1;
     if (m >= totalMonths - 1) { monthsSurvived = totalMonths; break; }
   }
 
   const yearsSurvived   = (monthsSurvived / 12).toFixed(1);
   const ageAtDepletion  = retireAge + Math.floor(monthsSurvived / 12);
-  const shortfall       = retirementMonths - monthsSurvived; // months short
+  const shortfall       = retirementMonths - monthsSurvived;
   const isSafe          = monthsSurvived >= retirementMonths;
 
-  // Verdict
   document.getElementById('verdict-danger').style.display = isSafe ? 'none' : 'block';
   document.getElementById('verdict-safe').style.display   = isSafe ? 'block' : 'none';
 
@@ -1531,21 +2579,18 @@ function updateReality() {
       `running out <span class="verdict-highlight">${shortYears} years early</span>, at age <span class="verdict-highlight">${ageAtDepletion}</span> instead of ${lifeExp}. ` +
       `You need to either invest more, retire later, or plan for a lower annual expense.`;
   } else {
-    // Corpus survives — calculate sustainable monthly expense (solve for PMT that depletes corpus at life expectancy)
-    // Binary search: find max monthly expense (today's terms) such that corpus hits 0 at lifeExp
     let lo = futureExpense, hi = futureExpense * 10;
     for (let iter = 0; iter < 60; iter++) {
       const mid = (lo + hi) / 2;
       let b = corpusAtRetirement;
       for (let m = 0; m < retirementMonths + 1; m++) {
-        b = b - mid * Math.pow(1 + inflMonthly, m); // withdraw first
+        b = b - mid * Math.pow(1 + inflMonthly, m);
         if (b <= 0) { b = -1; break; }
-        b = b * (1 + rPost);                         // then invest
+        b = b * (1 + rPost);
       }
       if (b > 0) lo = mid; else hi = mid;
     }
     const sustainableMonthly = (lo + hi) / 2;
-    // Convert back to today's terms
     const todayEquiv = sustainableMonthly / Math.pow(1 + inflation / 100, yearsToRetire);
 
     document.getElementById('verdict-safe-body').innerHTML =
@@ -1555,8 +2600,156 @@ function updateReality() {
       `and your corpus will reach exactly zero at age ${lifeExp}.`;
   }
 
-  // Draw reality chart
   drawRealityChart(corpusAtRetirement, futureExpense, retirementMonths, retireAge, lifeExp, rPost, inflMonthly, isSafe, ageAtDepletion);
+
+  // ── Section 2: vs Monte Carlo Safe Corpus ────────────────────
+  const targetSurvival = +document.getElementById('survivalSlider').value / 100;
+  const mcRequired = calcMCCorpus(targetSurvival);
+  const mcSurvivalPct = Math.round(targetSurvival * 100);
+
+  document.getElementById('rc-mc-result').style.display = 'block';
+
+  // Safe = your actual corpus at retirement meets the MC required corpus
+  const mcIsSafe = corpusAtRetirement >= mcRequired;
+  const mcCorpusGap = mcRequired - corpusAtRetirement;
+
+  document.getElementById('rc-mc-verdict-danger').style.display = mcIsSafe ? 'none' : 'block';
+  document.getElementById('rc-mc-verdict-safe').style.display   = mcIsSafe ? 'block' : 'none';
+
+  if (!mcIsSafe) {
+    // Run Monte Carlo on YOUR actual corpus to find median survival duration
+    const N_mc = 500;
+    const annualMean   = currentReturn / 100;
+    const annualStdDev = 0.12;
+    const yearsInRetirement = Math.round(retirementMonths / 12);
+    const depletionYears = [];
+
+    for (let sim = 0; sim < N_mc; sim++) {
+      let bal = corpusAtRetirement;
+      let depletedAt = yearsInRetirement; // default: survived fully
+      for (let y = 0; y < yearsInRetirement; y++) {
+        const u1 = Math.random(), u2 = Math.random();
+        const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        const monthlyR = (annualMean + annualStdDev * z) / 12;
+        for (let m = 0; m < 12; m++) {
+          bal -= futureExpense * Math.pow(1 + inflMonthly, y * 12 + m);
+          if (bal <= 0) { depletedAt = y + m / 12; bal = 0; break; }
+          bal *= (1 + monthlyR);
+        }
+        if (bal <= 0) break;
+      }
+      depletionYears.push(depletedAt);
+    }
+
+    depletionYears.sort((a, b) => a - b);
+    const medianYears    = depletionYears[Math.floor(N_mc * 0.5)];
+    const medianAge      = retireAge + Math.floor(medianYears);
+    const survivedFully  = depletionYears.filter(y => y >= yearsInRetirement).length;
+    const survivalRate   = (survivedFully / N_mc * 100).toFixed(0);
+    const shortYears     = Math.max(0, yearsInRetirement - medianYears).toFixed(1);
+    const shortText      = +shortYears < 0.5
+      ? `just a few months short`
+      : `<span class="verdict-highlight">${shortYears} years short</span>, running out at median age <span class="verdict-highlight">${medianAge}</span>`;
+
+    document.getElementById('rc-mc-danger-title').textContent = `Corpus falls short of Monte Carlo target`;
+    document.getElementById('rc-mc-danger-body').innerHTML =
+      `To have a <span class="verdict-highlight">${mcSurvivalPct}% survival chance</span>, you need a corpus of <span class="verdict-highlight">${fmt(mcRequired)}</span>. ` +
+      `Your actual corpus is <span class="verdict-highlight">${fmt(corpusAtRetirement)}</span> — a shortfall of <span class="verdict-highlight">${fmt(mcCorpusGap)}</span>. ` +
+      `Running Monte Carlo on your corpus: only <span class="verdict-highlight">${survivalRate}%</span> of simulations survive to age ${lifeExp}, ` +
+      `with the median outcome being ${shortText}.`;
+  } else {
+    // Binary search for max sustainable monthly spend that zeros corpus at lifeExp
+    let lo = futureExpense, hi = futureExpense * 10;
+    for (let iter = 0; iter < 60; iter++) {
+      const mid = (lo + hi) / 2;
+      let b = corpusAtRetirement;
+      for (let m = 0; m < retirementMonths + 1; m++) {
+        b -= mid * Math.pow(1 + inflMonthly, m);
+        if (b <= 0) { b = -1; break; }
+        b *= (1 + rPost);
+      }
+      if (b > 0) lo = mid; else hi = mid;
+    }
+    const mcSustainable = (lo + hi) / 2;
+    const mcTodayEquiv  = mcSustainable / Math.pow(1 + inflation / 100, yearsToRetire);
+    const mcCorpusSurplus = corpusAtRetirement - mcRequired;
+    document.getElementById('rc-mc-safe-body').innerHTML =
+      `Your corpus of <span class="verdict-highlight">${fmt(corpusAtRetirement)}</span> exceeds the Monte Carlo target of <span class="verdict-highlight">${fmt(mcRequired)}</span> ` +
+      `(surplus: <span class="verdict-highlight">${fmt(mcCorpusSurplus)}</span>) — giving you a <span class="verdict-highlight">${mcSurvivalPct}% survival probability</span>. ` +
+      `You can spend up to <span class="verdict-highlight">${fmt(mcSustainable)}/mo</span> at retirement ` +
+      `(<span class="verdict-highlight">${fmt(mcTodayEquiv)}/mo</span> in today's money) and your corpus reaches zero exactly at age <span class="verdict-highlight">${lifeExp}</span>.`;
+  }
+
+  drawRcCompareChart('rcMcChart', rcMcChart, corpusAtRetirement, mcRequired, retireAge, retirementMonths, futureExpense, rPost, inflMonthly, mcIsSafe, 'Monte Carlo Safe Corpus',
+    chart => { rcMcChart = chart; });
+
+  // ── Section 3: vs Bad Sequence Crash Corpus ──────────────────
+  const activeCfg  = CRASH_CONFIGS[activeCrashScenario];
+  const crashCfg   = activeCfg.type ? activeCfg : null;
+  const crashLabel = activeCfg.label + ' (' + activeCfg.desc + ')';
+  const bsRequired = findCrashCorpus(futureExpense, inflMonthly, rPost, retirementMonths + 1, crashCfg);
+
+  // Safe = your actual corpus at retirement meets the crash-proof required corpus
+  const bsIsSafe = corpusAtRetirement >= bsRequired;
+  const bsCorpusGap = bsRequired - corpusAtRetirement;
+
+  document.getElementById('rc-bs-verdict-danger').style.display = bsIsSafe ? 'none' : 'block';
+  document.getElementById('rc-bs-verdict-safe').style.display   = bsIsSafe ? 'block' : 'none';
+
+  if (!bsIsSafe) {
+    // Simulate actual corpus drawdown WITH crash applied to find depletion age
+    const crashMonthlyR = crashCfg ? crashCfg.annualReturn / 12 : rPost;
+    let bsBal = corpusAtRetirement, bsMonthsSurvived = 0;
+    for (let m = 0; m < (retirementMonths + 1) * 2; m++) {
+      bsBal -= futureExpense * Math.pow(1 + inflMonthly, m);
+      if (bsBal <= 0) break;
+      const r = crashCfg
+        ? (crashCfg.type === 'year1' && m < 12 ? crashMonthlyR
+          : crashCfg.type === 'years3' && m < 36 ? crashMonthlyR
+          : rPost)
+        : rPost;
+      bsBal *= (1 + r);
+      bsMonthsSurvived = m + 1;
+      if (m >= retirementMonths) { bsMonthsSurvived = retirementMonths + 1; break; }
+    }
+    const bsAgeDepletion  = retireAge + Math.floor(bsMonthsSurvived / 12);
+    const bsYearsSurvived = (bsMonthsSurvived / 12).toFixed(1);
+    const bsShortMonths   = Math.max(0, retirementMonths - bsMonthsSurvived);
+    const bsShortYears    = (bsShortMonths / 12).toFixed(1);
+    const bsShortText     = bsShortMonths < 6
+      ? `just a few months early`
+      : `<span class="verdict-highlight">${bsShortYears} years early</span> at age <span class="verdict-highlight">${bsAgeDepletion}</span>`;
+    document.getElementById('rc-bs-danger-title').textContent = `Corpus depletes at age ${bsAgeDepletion}`;
+    document.getElementById('rc-bs-danger-body').innerHTML =
+      `Against the <span class="verdict-highlight">${crashLabel}</span> scenario (requires corpus ${fmt(bsRequired)}), ` +
+      `your investment of <span class="verdict-highlight">${canInvest.toLocaleString()}/mo</span> only builds ` +
+      `<span class="verdict-highlight">${fmt(corpusAtRetirement)}</span> — lasting ` +
+      `<span class="verdict-highlight">${bsYearsSurvived} years</span> into retirement and running out ${bsShortText}.`;
+  } else {
+    // Binary search for max sustainable monthly spend that zeros corpus at lifeExp
+    let lo = futureExpense, hi = futureExpense * 10;
+    for (let iter = 0; iter < 60; iter++) {
+      const mid = (lo + hi) / 2;
+      let b = corpusAtRetirement;
+      for (let m = 0; m < retirementMonths + 1; m++) {
+        b -= mid * Math.pow(1 + inflMonthly, m);
+        if (b <= 0) { b = -1; break; }
+        b *= (1 + rPost);
+      }
+      if (b > 0) lo = mid; else hi = mid;
+    }
+    const bsSustainable = (lo + hi) / 2;
+    const bsTodayEquiv  = bsSustainable / Math.pow(1 + inflation / 100, yearsToRetire);
+    const bsCorpusSurplus = corpusAtRetirement - bsRequired;
+    document.getElementById('rc-bs-safe-body').innerHTML =
+      `Your corpus of <span class="verdict-highlight">${fmt(corpusAtRetirement)}</span> exceeds the target of <span class="verdict-highlight">${fmt(bsRequired)}</span> ` +
+      `(surplus: <span class="verdict-highlight">${fmt(bsCorpusSurplus)}</span>) — enough to survive the <span class="verdict-highlight">${crashLabel}</span> scenario. ` +
+      `You can spend up to <span class="verdict-highlight">${fmt(bsSustainable)}/mo</span> at retirement ` +
+      `(<span class="verdict-highlight">${fmt(bsTodayEquiv)}/mo</span> in today's money) and your corpus reaches zero exactly at age <span class="verdict-highlight">${lifeExp}</span>.`;
+  }
+
+  drawRcCompareChart('rcBsChart', rcBsChart, corpusAtRetirement, bsRequired, retireAge, retirementMonths, futureExpense, rPost, inflMonthly, bsIsSafe, activeCfg.label,
+    chart => { rcBsChart = chart; });
 }
 
 function drawRealityChart(corpusAtRetirement, futureExpense, retirementMonths, retireAge, lifeExp, rPost, inflMonthly, isSafe, ageAtDepletion) {
@@ -1635,12 +2828,1057 @@ function drawRealityChart(corpusAtRetirement, futureExpense, retirementMonths, r
     }
   });
 }
+
+
+// ── Reality Compare Chart (Sections 2 & 3) ──────────────────
+function drawRcCompareChart(canvasId, existingChart, yourCorpus, targetCorpus, retireAge, retirementMonths, futureExpense, rPost, inflMonthly, isSafe, targetLabel, setChart) {
+  const totalMonths = retirementMonths + 1;
+  const steps = Math.min(totalMonths, 60);
+  const interval = Math.max(1, Math.ceil(totalMonths / steps));
+  const labels = [], yourValues = [], targetValues = [];
+
+  for (let m = 0; m <= totalMonths; m += interval) {
+    labels.push(retireAge + Math.floor(m / 12));
+    const simulate = (startBal) => {
+      let bal = startBal;
+      for (let i = 0; i < m; i++) {
+        bal = bal - futureExpense * Math.pow(1 + inflMonthly, i);
+        if (bal < 0) return 0;
+        bal = bal * (1 + rPost);
+      }
+      return Math.round(Math.max(0, bal));
+    };
+    yourValues.push(simulate(yourCorpus));
+    targetValues.push(simulate(targetCorpus));
+  }
+
+  const ctx = document.getElementById(canvasId).getContext('2d');
+  if (existingChart) existingChart.destroy();
+
+  const yourColor   = isSafe ? '#4ade80' : '#f87171';
+  const yourGradClr = isSafe ? 'rgba(74,222,128,' : 'rgba(248,113,113,';
+  const grad = ctx.createLinearGradient(0, 0, 0, 200);
+  grad.addColorStop(0, yourGradClr + '0.2)');
+  grad.addColorStop(1, yourGradClr + '0.01)');
+
+  const newChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Your Corpus',
+          data: yourValues,
+          borderColor: yourColor,
+          borderWidth: 2.5,
+          backgroundColor: grad,
+          fill: true, tension: 0.4, pointRadius: 0,
+        },
+        {
+          label: targetLabel,
+          data: targetValues,
+          borderColor: 'rgba(240,205,122,0.8)',
+          borderWidth: 2,
+          borderDash: [6, 4],
+          backgroundColor: 'transparent',
+          fill: false, tension: 0.4, pointRadius: 0,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: {
+          display: true, position: 'top', align: 'end',
+          labels: { color: '#8892a4', font: { size: 10 }, boxWidth: 10, boxHeight: 2, padding: 8, usePointStyle: true }
+        },
+        tooltip: {
+          backgroundColor: '#1a2236', borderColor: 'rgba(201,168,76,0.3)', borderWidth: 1,
+          titleColor: '#f0cd7a', bodyColor: '#e8e4da', padding: 10,
+          callbacks: {
+            label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw),
+            title: ctx => 'Age ' + ctx[0].label
+          }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 } } },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 }, callback: v => fmt(v) } }
+      }
+    }
+  });
+  setChart(newChart);
+}
+
+
+
+// ── Sync Existing Corpus across all tabs ─────────────────────
+function syncExisting(sourceId) {
+  const val = +document.getElementById(sourceId).value;
+  ['existing', 'real-existing', 'cc-existing'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && el.value != val) el.value = val;
+    if (el) updateSliderProgress(el);
+  });
+  const fmt0 = v => (+v).toLocaleString();
+  const e1 = document.getElementById('val-existing');
+  const e2 = document.getElementById('val-real-existing');
+  const e3 = document.getElementById('val-cc-existing');
+  if (e1) e1.textContent = fmt0(val);
+  if (e2) e2.textContent = fmt0(val);
+  if (e3) e3.textContent = fmt0(val);
+}
+
+function switchMainTab(tab, btn) {
+  document.querySelectorAll('.main-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+  // Re-render charts that may be in the newly visible tab
+  if (tab === 'stress') {
+    updateCrashCorpus();
+  }
+  if (tab === 'reality') {
+    updateReality();
+  }
+}
+
+// ── Risk & Stress Testing ────────────────────────────────────
+
+let mcChart = null, sorChart = null, swrChart = null;
+let activeSOR = 'mild';
+
+function switchStress(panel) { /* Risk & Stress Testing section removed */ }
+
+function getStressInputs() {
+  const age       = +document.getElementById('age').value;
+  const retireAge = +document.getElementById('retireAge').value;
+  const lifeExp   = +document.getElementById('lifeExp').value;
+  const expense   = +document.getElementById('expense').value;
+  const inflation = +document.getElementById('inflation').value;
+  const postReturn= +document.getElementById('postReturn').value;
+  const hasExisting = document.getElementById('hasExisting').checked;
+  const existing  = hasExisting ? +document.getElementById('existing').value : 0;
+  const yearsToRetire    = Math.max(1, retireAge - age);
+  const yearsInRetirement= Math.max(1, lifeExp - retireAge);
+  const months           = yearsToRetire * 12;
+  const g = inflation / 100 / 12;
+  const rPost = postReturn / 100 / 12;
+  const futureExpense = expense * Math.pow(1 + g, months);
+  const { corpus } = calcSIPForReturn(currentReturn);
+  return { age, retireAge, lifeExp, expense, inflation, postReturn, existing,
+           yearsToRetire, yearsInRetirement, months, g, rPost, futureExpense, corpus };
+}
+
+// ── Monte Carlo ─────────────────────────────────────────────
+function runMonteCarlo() { /* Risk & Stress Testing section removed */ }
+function _runMonteCarloOld() {
+  const btn = document.getElementById('mc-run-btn');
+  btn.classList.add('running');
+  btn.textContent = '⏳ SIMULATING…';
+
+  setTimeout(() => {
+    const { corpus, futureExpense, yearsInRetirement, rPost, g } = getStressInputs();
+    const N = 1000;
+    const annualMean   = currentReturn / 100;
+    const annualStdDev = 0.12; // 12% std dev — realistic for diversified equity
+
+    const retMonths = yearsInRetirement * 12 + 1;
+    let survived = 0;
+    const finalCorpora = [];
+    // Store percentile paths
+    const allPaths = [];
+
+    for (let sim = 0; sim < N; sim++) {
+      let bal = corpus;
+      const path = [bal];
+      let alive = true;
+
+      for (let y = 0; y < yearsInRetirement; y++) {
+        // Random annual return using Box-Muller
+        const u1 = Math.random(), u2 = Math.random();
+        const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        const annualR = annualMean + annualStdDev * z;
+        const monthlyR = annualR / 12;
+
+        for (let m = 0; m < 12; m++) {
+          const monthIdx = y * 12 + m;
+          const withdrawal = futureExpense * Math.pow(1 + g, monthIdx);
+          bal = bal - withdrawal;
+          if (bal <= 0) { bal = 0; alive = false; break; }
+          bal = bal * (1 + monthlyR);
+        }
+        path.push(Math.max(0, bal));
+        if (!alive) {
+          // Pad remaining years with 0
+          for (let rem = y + 1; rem < yearsInRetirement; rem++) path.push(0);
+          break;
+        }
+      }
+
+      if (alive && bal > 0) survived++;
+      finalCorpora.push(bal);
+      allPaths.push(path);
+    }
+
+    // Sort final corpora for percentiles
+    finalCorpora.sort((a, b) => a - b);
+    const successRate = (survived / N * 100).toFixed(1);
+    const median      = finalCorpora[Math.floor(N * 0.5)];
+    const p10         = finalCorpora[Math.floor(N * 0.1)];
+    const p25         = finalCorpora[Math.floor(N * 0.25)];
+    const p75         = finalCorpora[Math.floor(N * 0.75)];
+    const p90         = finalCorpora[Math.floor(N * 0.9)];
+
+    // Sort paths by final value for fan
+    allPaths.sort((a, b) => (a[a.length-1] || 0) - (b[b.length-1] || 0));
+    const pathP10  = allPaths[Math.floor(N * 0.10)];
+    const pathP25  = allPaths[Math.floor(N * 0.25)];
+    const pathP50  = allPaths[Math.floor(N * 0.50)];
+    const pathP75  = allPaths[Math.floor(N * 0.75)];
+    const pathP90  = allPaths[Math.floor(N * 0.90)];
+
+    // Show stats
+    document.getElementById('mc-stats').style.display = 'grid';
+    document.getElementById('mc-meter').style.display = 'block';
+    document.getElementById('mc-chart-wrap').style.display = 'block';
+    document.getElementById('mc-chart-label').style.display = 'block';
+    document.getElementById('mc-note').style.display = 'block';
+
+    document.getElementById('mc-success-rate').textContent = successRate + '%';
+    document.getElementById('mc-median').textContent = fmt(median);
+    document.getElementById('mc-worst').textContent  = fmt(p10);
+    document.getElementById('mc-pct-label').textContent = successRate + '%';
+
+    // Color the success rate
+    const pct = +successRate;
+    const srEl = document.getElementById('mc-success-rate');
+    srEl.className = 'mc-stat-value ' + (pct >= 80 ? 'green' : pct >= 60 ? 'gold' : 'red');
+
+    // Survival meter color
+    const fill = document.getElementById('mc-meter-fill');
+    fill.style.width = Math.min(100, pct) + '%';
+    fill.style.background = pct >= 80
+      ? 'linear-gradient(90deg, #4ade80, #86efac)'
+      : pct >= 60
+      ? 'linear-gradient(90deg, #c9a84c, #f0cd7a)'
+      : 'linear-gradient(90deg, #f87171, #fca5a5)';
+
+    // Fan chart
+    const { retireAge, lifeExp } = getStressInputs();
+    const labels = Array.from({ length: pathP50.length }, (_, i) => retireAge + i);
+
+    const ctx = document.getElementById('mcChart').getContext('2d');
+    if (mcChart) mcChart.destroy();
+
+    mcChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Top 10%',
+            data: pathP90,
+            borderColor: 'rgba(74,222,128,0.9)',
+            borderWidth: 1.5,
+            backgroundColor: 'rgba(74,222,128,0.06)',
+            fill: false, tension: 0.4, pointRadius: 0,
+          },
+          {
+            label: '75th %ile',
+            data: pathP75,
+            borderColor: 'rgba(74,222,128,0.5)',
+            borderWidth: 1,
+            backgroundColor: 'rgba(74,222,128,0.08)',
+            fill: '-1', tension: 0.4, pointRadius: 0,
+          },
+          {
+            label: 'Median',
+            data: pathP50,
+            borderColor: '#f0cd7a',
+            borderWidth: 2.5,
+            backgroundColor: 'rgba(240,205,122,0.06)',
+            fill: false, tension: 0.4, pointRadius: 0,
+          },
+          {
+            label: '25th %ile',
+            data: pathP25,
+            borderColor: 'rgba(248,113,113,0.5)',
+            borderWidth: 1,
+            backgroundColor: 'rgba(248,113,113,0.06)',
+            fill: false, tension: 0.4, pointRadius: 0,
+          },
+          {
+            label: 'Worst 10%',
+            data: pathP10,
+            borderColor: 'rgba(248,113,113,0.9)',
+            borderWidth: 1.5,
+            backgroundColor: 'rgba(248,113,113,0.06)',
+            fill: '-1', tension: 0.4, pointRadius: 0,
+          },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            display: true, position: 'top', align: 'end',
+            labels: { color: '#8892a4', font: { size: 10 }, boxWidth: 10, boxHeight: 2, padding: 8, usePointStyle: true }
+          },
+          tooltip: {
+            backgroundColor: '#1a2236', borderColor: 'rgba(201,168,76,0.3)', borderWidth: 1,
+            titleColor: '#f0cd7a', bodyColor: '#e8e4da', padding: 10,
+            callbacks: {
+              label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw),
+              title: ctx => 'Age ' + ctx[0].label
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 } } },
+          y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 }, callback: v => fmt(v) } }
+        }
+      }
+    });
+
+    btn.classList.remove('running');
+    btn.textContent = '↺ RUN AGAIN';
+  }, 50);
+}
+
+// ── Sequence of Returns ─────────────────────────────────────
+function setSORScenario(btn, scenario) { /* Risk & Stress Testing section removed */ }
+function updateSOR() { /* Risk & Stress Testing section removed */ }
+function _updateSOROld() {
+  const { corpus, futureExpense, yearsInRetirement, rPost, g, retireAge, lifeExp, postReturn } = getStressInputs();
+  const retMonths = yearsInRetirement * 12 + 1;
+
+  // Base case: constant post-retirement return every month
+  const baseCorpus = simulateSORPath(corpus, futureExpense, g, rPost, retMonths, null);
+
+  // Crash scenario monthly return modifier
+  let crashConfig = null;
+  let verdictText = '';
+  let verdictClass = '';
+
+  if (activeSOR === 'mild') {
+    // -20% in year 1 (monthly = -1.85%), normal thereafter
+    crashConfig = { type: 'year1', annualReturn: -0.20 };
+    verdictText = 'A <span class="stress-highlight">mild −20% crash</span> in your first retirement year.';
+    verdictClass = 'moderate';
+  } else if (activeSOR === 'severe') {
+    crashConfig = { type: 'year1', annualReturn: -0.40 };
+    verdictText = 'A <span class="stress-highlight">severe −40% crash</span> in your first retirement year — like 2008.';
+    verdictClass = 'danger';
+  } else if (activeSOR === 'prolonged') {
+    crashConfig = { type: 'years3', annualReturn: -0.10 };
+    verdictText = 'A <span class="stress-highlight">lost decade scenario</span> — −10% returns for 3 consecutive years.';
+    verdictClass = 'danger';
+  } else {
+    verdictText = '<span class="stress-highlight">Perfect timing</span> — normal returns throughout retirement. This is your base case.';
+    verdictClass = 'safe';
+  }
+
+  const crashCorpus = simulateSORPath(corpus, futureExpense, g, rPost, retMonths, crashConfig);
+
+  // Find when crash scenario depletes (if it does)
+  let depletionAge = null;
+  for (let i = 0; i < crashCorpus.length; i++) {
+    if (crashCorpus[i] <= 0) { depletionAge = retireAge + i; break; }
+  }
+
+  const baseFinal  = baseCorpus[baseCorpus.length - 1];
+  const crashFinal = crashCorpus[crashCorpus.length - 1];
+  const impact     = baseFinal - crashFinal;
+
+  let verdictDetail = '';
+  if (depletionAge) {
+    verdictDetail = ` Your corpus depletes at age <span class="stress-highlight">${depletionAge}</span> — <span class="stress-highlight">${lifeExp - depletionAge} years short</span> of your target.`;
+    verdictClass = 'danger';
+  } else {
+    verdictDetail = ` Despite the crash, your corpus survives to age <span class="stress-highlight">${lifeExp}</span>, ending at <span class="stress-highlight">${fmt(crashFinal)}</span> (vs ${fmt(baseFinal)} base case). Impact: −${fmt(impact)}.`;
+    if (impact / baseFinal > 0.4) verdictClass = 'moderate';
+    else verdictClass = 'safe';
+  }
+
+  document.getElementById('sor-verdict').innerHTML = verdictText + verdictDetail;
+  document.getElementById('sor-verdict').className = 'sor-verdict ' + verdictClass;
+
+  // Draw chart
+  const labels = Array.from({ length: baseCorpus.length }, (_, i) => retireAge + i);
+  const ctx = document.getElementById('sorChart').getContext('2d');
+  if (sorChart) sorChart.destroy();
+
+  sorChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Base Case',
+          data: baseCorpus,
+          borderColor: 'rgba(96,165,250,0.7)',
+          borderWidth: 2,
+          borderDash: [6, 4],
+          backgroundColor: 'transparent',
+          tension: 0.4, pointRadius: 0, fill: false,
+        },
+        {
+          label: activeSOR === 'perfect' ? 'Normal Returns' : 'Crash Scenario',
+          data: crashCorpus,
+          borderColor: activeSOR === 'perfect' ? '#4ade80' : '#f87171',
+          borderWidth: 2.5,
+          backgroundColor: activeSOR === 'perfect' ? 'rgba(74,222,128,0.08)' : 'rgba(248,113,113,0.08)',
+          fill: true, tension: 0.4, pointRadius: 0,
+        }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: true, position: 'top', align: 'end',
+          labels: { color: '#8892a4', font: { size: 10 }, boxWidth: 10, boxHeight: 2, padding: 8, usePointStyle: true }
+        },
+        tooltip: {
+          backgroundColor: '#1a2236', borderColor: 'rgba(201,168,76,0.3)', borderWidth: 1,
+          titleColor: '#f0cd7a', bodyColor: '#e8e4da', padding: 10,
+          callbacks: { label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw), title: ctx => 'Age ' + ctx[0].label }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 } } },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 }, callback: v => fmt(v) } }
+      }
+    }
+  });
+}
+
+function simulateSORPath(corpus, D0, g, baseR, retMonths, crashConfig) {
+  const path = [corpus];
+  let bal = corpus;
+
+  for (let m = 0; m < retMonths; m++) {
+    let r = baseR;
+    // Apply crash
+    if (crashConfig) {
+      if (crashConfig.type === 'year1' && m < 12) {
+        r = crashConfig.annualReturn / 12;
+      } else if (crashConfig.type === 'years3' && m < 36) {
+        r = crashConfig.annualReturn / 12;
+      }
+    }
+    const withdrawal = D0 * Math.pow(1 + g, m);
+    bal = bal - withdrawal;
+    if (bal <= 0) { bal = 0; }
+    else { bal = bal * (1 + r); }
+
+    // Push yearly data points only
+    if ((m + 1) % 12 === 0 || m === retMonths - 1) {
+      path.push(Math.max(0, bal));
+    }
+  }
+  return path;
+}
+
+// ── Safe Withdrawal Rate ────────────────────────────────────
+function updateSWR() { /* Risk & Stress Testing section removed */ }
+function _updateSWROld() {
+  const { corpus, futureExpense, yearsInRetirement, rPost, g, retireAge, lifeExp } = getStressInputs();
+  const retMonths = yearsInRetirement * 12 + 1;
+
+  // Binary search for SWR: max % of corpus withdrawable annually (inflation-adjusted) that leaves ≥0 at life expectancy
+  let lo = 0.5, hi = 20; // search between 0.5% and 20%
+  for (let iter = 0; iter < 80; iter++) {
+    const mid = (lo + hi) / 2;
+    const annualWithdrawal = corpus * mid / 100;
+    const monthlyWithdrawal = annualWithdrawal / 12;
+    let bal = corpus;
+    let survived = true;
+    for (let m = 0; m < retMonths; m++) {
+      const withdrawal = monthlyWithdrawal * Math.pow(1 + g, m);
+      bal = bal - withdrawal;
+      if (bal <= 0) { survived = false; break; }
+      bal = bal * (1 + rPost);
+    }
+    if (survived) lo = mid; else hi = mid;
+  }
+
+  const swr = (lo + hi) / 2;
+  const annualAmt = corpus * swr / 100;
+  const monthlyAmt = annualAmt / 12;
+
+  document.getElementById('swr-pct').textContent = swr.toFixed(2) + '%';
+  document.getElementById('swr-monthly').innerHTML =
+    `You can withdraw <span>${fmt(monthlyAmt)}/mo</span> (${fmt(annualAmt)}/yr) inflation-adjusted`;
+
+  // Gauge marker: map SWR to position
+  // Zones: <2% = danger, 2-3% = caution, 3-5% = sweet spot, 5-7% = leaving money, >7% = danger
+  const swrPct = Math.min(Math.max(swr, 0.5), 10);
+  const markerPos = ((swrPct - 0.5) / 9.5) * 100;
+  document.getElementById('swr-marker').style.left = markerPos + '%';
+
+  // Draw corpus trajectory at this SWR
+  const monthlyW = monthlyAmt;
+  const path = [];
+  let bal = corpus;
+  path.push(bal);
+  for (let m = 0; m < retMonths; m++) {
+    const withdrawal = monthlyW * Math.pow(1 + g, m);
+    bal = bal - withdrawal;
+    if (bal <= 0) { bal = 0; }
+    else { bal = bal * (1 + rPost); }
+    if ((m + 1) % 12 === 0 || m === retMonths - 1) path.push(Math.max(0, bal));
+  }
+
+  const labels = Array.from({ length: path.length }, (_, i) => retireAge + i);
+  const ctx = document.getElementById('swrChart').getContext('2d');
+  if (swrChart) swrChart.destroy();
+
+  const grad = ctx.createLinearGradient(0, 0, 0, 200);
+  grad.addColorStop(0, 'rgba(201,168,76,0.25)');
+  grad.addColorStop(1, 'rgba(201,168,76,0.02)');
+
+  swrChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Corpus',
+        data: path,
+        borderColor: '#c9a84c',
+        borderWidth: 2.5,
+        backgroundColor: grad,
+        fill: true, tension: 0.4, pointRadius: 0,
+        pointHoverRadius: 5, pointHoverBackgroundColor: '#c9a84c',
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1a2236', borderColor: 'rgba(201,168,76,0.3)', borderWidth: 1,
+          titleColor: '#f0cd7a', bodyColor: '#e8e4da', padding: 10,
+          callbacks: { label: ctx => ' Corpus: ' + fmt(ctx.raw), title: ctx => 'Age ' + ctx[0].label }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 } } },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 }, callback: v => fmt(v) } }
+      }
+    }
+  });
+}
+
+// Init stress tests when inputs change
+const _origUpdate = update;
+// SOR and SWR auto-refresh when visible
+function refreshStressIfVisible() { /* Risk & Stress Testing section removed */ }
+
+
+// ── Safe Corpus Finder ───────────────────────────────────────
+let safeCorpusChart = null;
+
+function onSurvivalSliderMove() {
+  const val = +document.getElementById('survivalSlider').value;
+  const badge = document.getElementById('survival-badge');
+  badge.textContent = val + '%';
+  // Colour badge based on zone
+  if (val >= 85)      { badge.className = 'survival-pct-badge'; }         // green
+  else if (val >= 70) { badge.className = 'survival-pct-badge caution'; } // gold
+  else                { badge.className = 'survival-pct-badge danger'; }  // red
+  // Update thumb border colour to match
+  const slider = document.getElementById('survivalSlider');
+  slider.style.setProperty('--thumb-color',
+    val >= 85 ? '#4ade80' : val >= 70 ? '#f0cd7a' : '#f87171');
+}
+
+// Reusable: compute Monte Carlo safe corpus synchronously (N=300 for speed)
+function calcMCCorpus(targetSurvival) {
+  const { futureExpense, yearsInRetirement, g } = getStressInputs();
+  const { corpus: plannedCorpus } = calcSIPForReturn(currentReturn);
+  const N = 300;
+  const annualMean   = currentReturn / 100;
+  const annualStdDev = 0.12;
+
+  const returnSeqs = [];
+  for (let sim = 0; sim < N; sim++) {
+    const seq = [];
+    for (let y = 0; y < yearsInRetirement; y++) {
+      const u1 = Math.random(), u2 = Math.random();
+      const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+      seq.push(annualMean + annualStdDev * z);
+    }
+    returnSeqs.push(seq);
+  }
+
+  function survivalRate(corpus) {
+    let survived = 0;
+    for (let sim = 0; sim < N; sim++) {
+      let bal = corpus, alive = true;
+      for (let y = 0; y < yearsInRetirement; y++) {
+        const monthlyR = returnSeqs[sim][y] / 12;
+        for (let m = 0; m < 12; m++) {
+          const withdrawal = futureExpense * Math.pow(1 + g, y * 12 + m);
+          bal -= withdrawal;
+          if (bal <= 0) { alive = false; break; }
+          bal *= (1 + monthlyR);
+        }
+        if (!alive) break;
+      }
+      if (alive && bal > 0) survived++;
+    }
+    return survived / N;
+  }
+
+  let lo = plannedCorpus * 0.3, hi = plannedCorpus * 4;
+  for (let t = 0; t < 5; t++) { if (survivalRate(hi) >= targetSurvival) break; hi *= 1.5; }
+  for (let i = 0; i < 20; i++) {
+    const mid = (lo + hi) / 2;
+    if (survivalRate(mid) >= targetSurvival) hi = mid; else lo = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+function runSafeCorpus() {
+  const btn = document.getElementById('safe-run-btn');
+  btn.classList.add('running');
+  btn.textContent = '⏳ RUNNING 1,000 SIMULATIONS…';
+
+  setTimeout(() => {
+    const targetSurvival = +document.getElementById('survivalSlider').value / 100;
+    const { futureExpense, yearsInRetirement, g, retireAge } = getStressInputs();
+    const { corpus: plannedCorpus } = calcSIPForReturn(currentReturn);
+
+    const N = 1000;
+    const annualMean   = currentReturn / 100;
+    const annualStdDev = 0.12;
+    const retMonths    = yearsInRetirement * 12 + 1;
+
+    // Pre-generate all N random return sequences (fixed seed per run)
+    // so we can reuse them for different corpus sizes
+    const returnSeqs = [];
+    for (let sim = 0; sim < N; sim++) {
+      const seq = [];
+      for (let y = 0; y < yearsInRetirement; y++) {
+        const u1 = Math.random(), u2 = Math.random();
+        const z  = Math.sqrt(-2 * Math.log(u1)) * Math.cos(2 * Math.PI * u2);
+        seq.push(annualMean + annualStdDev * z);
+      }
+      returnSeqs.push(seq);
+    }
+
+    // Function: given a corpus, run all N simulations and return survival rate
+    function survivalRate(corpus) {
+      let survived = 0;
+      for (let sim = 0; sim < N; sim++) {
+        let bal = corpus;
+        let alive = true;
+        for (let y = 0; y < yearsInRetirement; y++) {
+          const monthlyR = returnSeqs[sim][y] / 12;
+          for (let m = 0; m < 12; m++) {
+            const idx = y * 12 + m;
+            const withdrawal = futureExpense * Math.pow(1 + g, idx);
+            bal = bal - withdrawal;
+            if (bal <= 0) { alive = false; break; }
+            bal = bal * (1 + monthlyR);
+          }
+          if (!alive) break;
+        }
+        if (alive && bal > 0) survived++;
+      }
+      return survived / N;
+    }
+
+    // Binary search for the corpus that achieves targetSurvival
+    // Start range: plannedCorpus * 0.5 to plannedCorpus * 3
+    let lo = plannedCorpus * 0.3;
+    let hi = plannedCorpus * 4;
+
+    // Sanity: if even hi doesn't achieve target, push hi higher
+    for (let tries = 0; tries < 5; tries++) {
+      if (survivalRate(hi) >= targetSurvival) break;
+      hi *= 1.5;
+    }
+
+    for (let iter = 0; iter < 20; iter++) {
+      const mid = (lo + hi) / 2;
+      if (survivalRate(mid) >= targetSurvival) hi = mid;
+      else lo = mid;
+    }
+
+    const safeCorpus = (lo + hi) / 2;
+    const achievedRate = survivalRate(safeCorpus);
+
+    // Now compute extra monthly SIP needed for safeCorpus vs plannedCorpus
+    const gap = safeCorpus - plannedCorpus;
+    const { yearsToRetire, months } = getStressInputs();
+    const extraSIP = gap > 0 ? calcSIPForCorpus(gap, currentReturn, months, 0) : 0;
+
+    // Display results
+    document.getElementById('sc-safe-corpus').textContent    = fmt(safeCorpus);
+    document.getElementById('sc-planned-corpus').textContent = fmt(plannedCorpus);
+    document.getElementById('sc-achieved-rate').textContent  = (achievedRate * 100).toFixed(1) + '%';
+
+    const extraSIPEl = document.getElementById('sc-extra-sip');
+    if (gap > 0) {
+      extraSIPEl.textContent = fmt(Math.ceil(extraSIP)) + '/mo';
+      extraSIPEl.className   = 'safe-corpus-item-value red';
+    } else {
+      extraSIPEl.textContent = 'None needed';
+      extraSIPEl.className   = 'safe-corpus-item-value green';
+    }
+
+    const gapEl    = document.getElementById('sc-gap');
+    const gapSubEl = document.getElementById('sc-gap-sub');
+    if (gap > 0) {
+      gapEl.textContent    = '+' + fmt(gap);
+      gapEl.className      = 'safe-corpus-gap-value negative';
+      gapSubEl.textContent = 'Additional corpus needed to hit your target survival probability';
+    } else {
+      gapEl.textContent    = fmt(Math.abs(gap)) + ' surplus';
+      gapEl.className      = 'safe-corpus-gap-value positive';
+      gapSubEl.textContent = "Your planned corpus already exceeds what's needed!";
+    }
+
+    document.getElementById('safe-corpus-result-wrap').style.display = 'block';
+
+    // ── Fan chart: run paths for BOTH safe corpus and planned corpus ──
+    const safePaths     = [];
+    const plannedPaths  = [];
+
+    for (let sim = 0; sim < N; sim++) {
+      const runPath = (startCorpus) => {
+        let bal = startCorpus;
+        const path = [bal];
+        let alive = true;
+        for (let y = 0; y < yearsInRetirement; y++) {
+          const monthlyR = returnSeqs[sim][y] / 12;
+          for (let m = 0; m < 12; m++) {
+            const idx = y * 12 + m;
+            const withdrawal = futureExpense * Math.pow(1 + g, idx);
+            bal = bal - withdrawal;
+            if (bal <= 0) { alive = false; bal = 0; break; }
+            bal = bal * (1 + monthlyR);
+          }
+          path.push(Math.max(0, bal));
+          if (!alive) {
+            for (let rem = y + 1; rem < yearsInRetirement; rem++) path.push(0);
+            break;
+          }
+        }
+        return path;
+      };
+      safePaths.push(runPath(safeCorpus));
+      plannedPaths.push(runPath(plannedCorpus));
+    }
+
+    // Extract percentile paths for fan
+    const pctPath = (paths, pct) => {
+      paths.sort((a, b) => (a[a.length-1]||0) - (b[b.length-1]||0));
+      return paths[Math.floor(paths.length * pct)];
+    };
+
+    const labels = Array.from({ length: safePaths[0].length }, (_, i) => retireAge + i);
+    const ctx = document.getElementById('safeCorpusChart').getContext('2d');
+    if (safeCorpusChart) safeCorpusChart.destroy();
+
+    safeCorpusChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'Safe — Top 75%',
+            data: pctPath(safePaths.slice(), 0.75),
+            borderColor: 'rgba(74,222,128,0.8)',
+            borderWidth: 1.5,
+            backgroundColor: 'rgba(74,222,128,0.07)',
+            fill: false, tension: 0.4, pointRadius: 0,
+          },
+          {
+            label: 'Safe — Median',
+            data: pctPath(safePaths.slice(), 0.50),
+            borderColor: '#4ade80',
+            borderWidth: 2.5,
+            backgroundColor: 'rgba(74,222,128,0.06)',
+            fill: false, tension: 0.4, pointRadius: 0,
+          },
+          {
+            label: 'Safe — Worst 25%',
+            data: pctPath(safePaths.slice(), 0.25),
+            borderColor: 'rgba(74,222,128,0.4)',
+            borderWidth: 1,
+            backgroundColor: 'rgba(74,222,128,0.04)',
+            fill: false, tension: 0.4, pointRadius: 0,
+          },
+          {
+            label: 'Planned — Median',
+            data: pctPath(plannedPaths.slice(), 0.50),
+            borderColor: '#f0cd7a',
+            borderWidth: 2,
+            borderDash: [5, 4],
+            backgroundColor: 'transparent',
+            fill: false, tension: 0.4, pointRadius: 0,
+          },
+          {
+            label: 'Planned — Worst 25%',
+            data: pctPath(plannedPaths.slice(), 0.25),
+            borderColor: 'rgba(248,113,113,0.6)',
+            borderWidth: 1.5,
+            borderDash: [4, 4],
+            backgroundColor: 'transparent',
+            fill: false, tension: 0.4, pointRadius: 0,
+          },
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            display: true, position: 'top', align: 'end',
+            labels: { color: '#8892a4', font: { size: 9 }, boxWidth: 10, boxHeight: 2, padding: 6, usePointStyle: true }
+          },
+          tooltip: {
+            backgroundColor: '#1a2236', borderColor: 'rgba(74,222,128,0.3)', borderWidth: 1,
+            titleColor: '#4ade80', bodyColor: '#e8e4da', padding: 10,
+            callbacks: {
+              label: ctx => ' ' + ctx.dataset.label + ': ' + fmt(ctx.raw),
+              title: ctx => 'Age ' + ctx[0].label
+            }
+          }
+        },
+        scales: {
+          x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 } } },
+          y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#8892a4', font: { size: 10 }, callback: v => fmt(v) } }
+        }
+      }
+    });
+
+    // Store result for Real Plan section
+    storedSafeCorpus  = safeCorpus;
+    storedSurvivalPct = Math.round(targetSurvival * 100);
+    updateRealPlan();
+    updateCrashCorpus();
+    // Refresh Reality Check tab Section 2 if it's visible
+    updateReality();
+
+    btn.classList.remove('running');
+    btn.textContent = '↺ RECALCULATE';
+  }, 50);
+}
+
+
+// ── Real Investment Plan ─────────────────────────────────────
+let storedSafeCorpus   = null;
+let storedSurvivalPct  = null;
+
+function updateRealPlan() {
+  const existing = +document.getElementById('real-existing').value;
+  document.getElementById('val-real-existing').textContent = existing.toLocaleString();
+  updateSliderProgress(document.getElementById('real-existing'));
+
+  if (!storedSafeCorpus) {
+    // Safe corpus not yet computed — show notice only
+    document.getElementById('real-plan-notice').style.display  = 'block';
+    document.getElementById('real-plan-result').style.display  = 'none';
+    return;
+  }
+
+  // Hide notice, show result
+  document.getElementById('real-plan-notice').style.display = 'none';
+  document.getElementById('real-plan-result').style.display = 'block';
+
+  const { yearsToRetire, months } = getStressInputs();
+  const { sip: basicSIP } = calcSIPForReturn(currentReturn);
+
+  // SIP needed to reach safe corpus, given existing savings growing at currentReturn
+  const realSIP = calcSIPForCorpus(storedSafeCorpus, currentReturn, months, existing);
+  const realSIPCeiled = Math.max(0, Math.ceil(realSIP));
+
+  // How much of safe corpus is already covered by existing savings (future value)
+  const r = Math.pow(1 + currentReturn / 100, 1/12) - 1;
+  const fvExisting = existing * Math.pow(1 + r, months);
+  const stillNeeded = Math.max(0, storedSafeCorpus - fvExisting);
+  const coverPct = storedSafeCorpus > 0 ? Math.min(100, (fvExisting / storedSafeCorpus * 100)) : 0;
+
+  // vs basic SIP
+  const sipDiff = realSIPCeiled - Math.ceil(basicSIP);
+
+  document.getElementById('rp-sip').textContent = realSIPCeiled > 0
+    ? fmt(realSIPCeiled)
+    : '₹ 0';
+
+  // Sub-text
+  if (realSIPCeiled === 0) {
+    document.getElementById('rp-sip-sub').textContent =
+      'Your existing savings already cover the safe corpus — no additional SIP needed!';
+  } else {
+    document.getElementById('rp-sip-sub').textContent =
+      'per month for ' + yearsToRetire + ' years at ' + currentReturn + '% return';
+  }
+
+  document.getElementById('rp-safe-corpus').textContent = fmt(storedSafeCorpus);
+  document.getElementById('rp-existing').textContent    = existing > 0 ? fmt(existing) : '—';
+  document.getElementById('rp-cover').textContent       = coverPct.toFixed(1) + '%';
+  document.getElementById('rp-cover').className =
+    'real-plan-item-value ' + (coverPct >= 75 ? 'green' : coverPct >= 40 ? 'gold' : 'red');
+
+  document.getElementById('rp-gap').textContent  = stillNeeded > 0 ? fmt(stillNeeded) : 'Covered ✓';
+  document.getElementById('rp-gap').className    =
+    'real-plan-item-value ' + (stillNeeded === 0 ? 'green' : 'gold');
+
+  document.getElementById('rp-years').textContent    = yearsToRetire + ' yrs';
+  document.getElementById('rp-survival').textContent = storedSurvivalPct + '%';
+
+  const vsBasicEl = document.getElementById('rp-vs-basic');
+  if (sipDiff > 0) {
+    vsBasicEl.textContent  = '+' + fmt(sipDiff) + ' more';
+    vsBasicEl.className    = 'real-plan-item-value red';
+  } else if (sipDiff < 0) {
+    vsBasicEl.textContent  = fmt(Math.abs(sipDiff)) + ' less';
+    vsBasicEl.className    = 'real-plan-item-value green';
+  } else {
+    vsBasicEl.textContent  = 'Same';
+    vsBasicEl.className    = 'real-plan-item-value';
+  }
+
+  document.getElementById('rp-total').textContent =
+    realSIPCeiled > 0 ? fmt(realSIPCeiled * months) : fmt(existing);
+}
+
+
+// ── Crash Corpus Finder ──────────────────────────────────────
+let activeCrashScenario = 'mild';
+
+const CRASH_CONFIGS = {
+  base:      { type: null,    annualReturn: null,  label: 'Base Case',       icon: '📈', desc: 'No crash, normal returns' },
+  mild:      { type: 'year1', annualReturn: -0.20, label: 'Mild Correction', icon: '📉', desc: '−20% in Year 1' },
+  severe:    { type: 'year1', annualReturn: -0.40, label: 'Severe Crash',    icon: '📉📉', desc: '−40% in Year 1 (2008)' },
+  prolonged: { type: 'years3',annualReturn: -0.10, label: 'Lost Decade',     icon: '📉📉📉', desc: '−10% for 3 Years' },
+};
+
+// Binary search: find minimum corpus that survives a given crash scenario
+function findCrashCorpus(futureExpense, g, rPost, retMonths, crashConfig) {
+  // A corpus that "survives" = balance >= 0 at all retMonths
+  function survives(corpus) {
+    let bal = corpus;
+    for (let m = 0; m < retMonths; m++) {
+      let r = rPost;
+      if (crashConfig) {
+        if (crashConfig.type === 'year1'  && m < 12) r = crashConfig.annualReturn / 12;
+        if (crashConfig.type === 'years3' && m < 36) r = crashConfig.annualReturn / 12;
+      }
+      const withdrawal = futureExpense * Math.pow(1 + g, m);
+      bal = bal - withdrawal;
+      if (bal <= 0) return false;
+      bal = bal * (1 + r);
+    }
+    return bal >= 0;
+  }
+
+  // Start with a generous upper bound
+  let lo = 0, hi = futureExpense * retMonths * 3;
+  // Ensure hi actually survives
+  while (!survives(hi)) hi *= 2;
+
+  for (let i = 0; i < 60; i++) {
+    const mid = (lo + hi) / 2;
+    if (survives(mid)) hi = mid;
+    else lo = mid;
+  }
+  return (lo + hi) / 2;
+}
+
+function updateCrashCorpus() {
+  const { futureExpense, yearsInRetirement, rPost, g, retireAge, lifeExp,
+          yearsToRetire, months } = getStressInputs();
+  const retMonths = yearsInRetirement * 12 + 1;
+  const existing  = +document.getElementById('cc-existing').value;
+
+  document.getElementById('val-cc-existing').textContent = existing.toLocaleString();
+  updateSliderProgress(document.getElementById('cc-existing'));
+  document.getElementById('cc-lifeexp-label').textContent = lifeExp;
+
+  // Compute required corpus for all scenarios
+  const results = {};
+  for (const [key, cfg] of Object.entries(CRASH_CONFIGS)) {
+    const requiredCorpus = findCrashCorpus(futureExpense, g, rPost, retMonths,
+      cfg.type ? cfg : null);
+    const r       = Math.pow(1 + currentReturn / 100, 1/12) - 1;
+    const fvEx    = existing * Math.pow(1 + r, months);
+    const gap     = Math.max(0, requiredCorpus - fvEx);
+    const sip     = gap > 0 ? calcSIPForCorpus(gap, currentReturn, months, 0) : 0;
+    results[key]  = { corpus: requiredCorpus, sip: Math.ceil(sip), fvEx, gap };
+  }
+
+  // Populate summary table
+  for (const key of ['base', 'mild', 'severe', 'prolonged']) {
+    const r = results[key];
+    document.getElementById('cc-corpus-' + key).textContent = fmt(r.corpus);
+    document.getElementById('cc-sip-' + key).textContent    = r.sip > 0 ? fmt(r.sip) + '/mo' : '₹ 0';
+    // Bold active row
+    document.getElementById('cc-row-' + key).style.background =
+      key === activeCrashScenario ? 'rgba(248,113,113,0.06)' : '';
+  }
+
+  // Populate detail panel for active scenario
+  renderCrashDetail(activeCrashScenario, results, futureExpense, g, rPost, retMonths,
+                    retireAge, yearsToRetire, months, results.base.corpus);
+}
+
+function setCrashDetail(scenario, btn) {
+  document.querySelectorAll('.crash-scenario-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeCrashScenario = scenario;
+  updateCrashCorpus();
+  updateReality();
+}
+
+function renderCrashDetail(scenario, results, futureExpense, g, rPost, retMonths,
+                            retireAge, yearsToRetire, months, baseCorpus) {
+  const cfg = CRASH_CONFIGS[scenario];
+  const res = results[scenario];
+  const extraVsBase = res.corpus - baseCorpus;
+  const coverPct = res.corpus > 0
+    ? Math.min(100, res.fvEx / res.corpus * 100)
+    : 0;
+
+  document.getElementById('cc-detail-title').textContent =
+    cfg.icon + ' ' + cfg.label + ' — Detail';
+  document.getElementById('cc-detail-corpus').textContent = fmt(res.corpus);
+  document.getElementById('cc-detail-extra').textContent  =
+    extraVsBase > 0 ? '+' + fmt(extraVsBase) + ' extra' : 'Same as base';
+  document.getElementById('cc-detail-cover').textContent  = coverPct.toFixed(1) + '%';
+  document.getElementById('cc-detail-cover').className =
+    'crash-detail-value ' + (coverPct >= 75 ? 'green' : coverPct >= 40 ? 'gold' : 'red');
+  document.getElementById('cc-detail-gap').textContent =
+    res.gap > 0 ? fmt(res.gap) : 'Covered ✓';
+  document.getElementById('cc-detail-gap').className =
+    'crash-detail-value ' + (res.gap === 0 ? 'green' : 'gold');
+
+  document.getElementById('cc-detail-sip').textContent =
+    res.sip > 0 ? fmt(res.sip) : '₹ 0';
+  document.getElementById('cc-detail-sip-sub').textContent =
+    res.sip > 0
+      ? 'per month for ' + yearsToRetire + ' yrs at ' + currentReturn + '% return'
+      : 'Your existing savings already cover this scenario!';
+
+}
+
 // ─────────────────────────────────────────────────────────────
 
 // Init
 document.querySelectorAll('input[type="range"]').forEach(updateSliderProgress);
 update();
 updateReality();
+updateSWR();
+updateSOR();
+updateRealPlan();
+updateCrashCorpus();
 
 </script>
 </body>
