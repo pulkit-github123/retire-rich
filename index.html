@@ -1087,12 +1087,14 @@ function fmt(n) {
     if (n >= 1e7)  return (n / 1e7).toFixed(2) + ' Cr';
     if (n >= 1e5)  return (n / 1e5).toFixed(2) + ' L';
     if (n >= 1e3)  return (n / 1e3).toFixed(1) + 'K';
-    return Math.round(n).toLocaleString('en-IN');
+    if (n >= 10)   return Math.round(n).toLocaleString('en-IN');
+    return n.toFixed(1);
   } else {
     if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
     if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
     if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
-    return Math.round(n).toLocaleString();
+    if (n >= 10)  return Math.round(n).toLocaleString();
+    return n.toFixed(1);
   }
 }
 
@@ -1399,9 +1401,9 @@ function updateAlloc() {
   const { sip } = calcSIPForReturn(blended);
   const sipAmt = Math.ceil(sip);
 
-  document.getElementById('amt-equity').textContent  = fmt(Math.round(sipAmt * allocEquity / 100));
-  document.getElementById('amt-debt').textContent    = fmt(Math.round(sipAmt * allocDebt / 100));
-  document.getElementById('amt-deposit').textContent = fmt(Math.round(sipAmt * allocDeposit / 100));
+  document.getElementById('amt-equity').textContent  = fmt(sipAmt * allocEquity / 100);
+  document.getElementById('amt-debt').textContent    = fmt(sipAmt * allocDebt / 100);
+  document.getElementById('amt-deposit').textContent = fmt(sipAmt * allocDeposit / 100);
 
   document.getElementById('pct-equity').textContent  = allocEquity + '%';
   document.getElementById('pct-debt').textContent    = allocDebt + '%';
