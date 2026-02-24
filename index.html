@@ -356,7 +356,6 @@
     margin-top: 2px;
   }
 
-  /* Retirement Age slider special */
   .age-display {
     display: flex;
     justify-content: space-between;
@@ -364,6 +363,7 @@
     color: var(--muted);
     margin-top: 4px;
   }
+
 
   /* Toggle for "existing corpus" */
   .toggle-row {
@@ -736,6 +736,40 @@
   .reality-slider-wrap {
     margin-bottom: 4px;
   }
+
+  /* Number format toggle */
+  .fmt-toggle {
+    display: flex;
+    gap: 4px;
+    background: var(--navy3);
+    border-radius: 8px;
+    padding: 3px;
+    border: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .fmt-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 5px 10px;
+    border-radius: 6px;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .fmt-btn.active {
+    background: var(--gold);
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .fmt-btn:hover:not(.active) {
+    color: var(--text);
+  }
 </style>
 </head>
 <body>
@@ -782,14 +816,20 @@
 
   <!-- Financial Inputs -->
   <div class="card">
-    <div class="card-title">Financial Inputs (Currency Agnostic, just give the numbers)</div>
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <div class="card-title" style="margin-bottom:0;">Financial Inputs (Currency Agnostic)</div>
+      <div class="fmt-toggle">
+        <button class="fmt-btn" id="fmt-btn-indian" onclick="setFmt('indian')">₹ Lacs/Cr</button>
+        <button class="fmt-btn active" id="fmt-btn-million" onclick="setFmt('million')">Millions</button>
+      </div>
+    </div>
 
     <div class="input-group">
       <div class="input-label">
         <span>Monthly Expenses (today)</span>
         <span class="input-value" id="val-expense">3,000</span>
       </div>
-      <input type="range" id="expense" min="500" max="200000" step="100" value="3000" oninput="update()">
+      <input type="range" id="expense" min="500" max="200000" step="500" value="3000" oninput="update()">
     </div>
 
     <div class="input-group">
@@ -1032,11 +1072,28 @@
 let currentReturn = 10;
 let chart = null;
 
+let fmtMode = 'million'; // 'indian' or 'million'
+
+function setFmt(mode) {
+  fmtMode = mode;
+  document.getElementById('fmt-btn-indian').classList.toggle('active', mode === 'indian');
+  document.getElementById('fmt-btn-million').classList.toggle('active', mode === 'million');
+  update();
+  updateReality();
+}
+
 function fmt(n) {
-  if (n >= 1e9) return (n/1e9).toFixed(2) + 'B';
-  if (n >= 1e6) return (n/1e6).toFixed(2) + 'M';
-  if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
-  return Math.round(n).toLocaleString();
+  if (fmtMode === 'indian') {
+    if (n >= 1e7)  return (n / 1e7).toFixed(2) + ' Cr';
+    if (n >= 1e5)  return (n / 1e5).toFixed(2) + ' L';
+    if (n >= 1e3)  return (n / 1e3).toFixed(1) + 'K';
+    return Math.round(n).toLocaleString('en-IN');
+  } else {
+    if (n >= 1e9) return (n / 1e9).toFixed(2) + 'B';
+    if (n >= 1e6) return (n / 1e6).toFixed(2) + 'M';
+    if (n >= 1e3) return (n / 1e3).toFixed(1) + 'K';
+    return Math.round(n).toLocaleString();
+  }
 }
 
 function updateSliderProgress(input) {
@@ -1055,9 +1112,9 @@ function calcSIP(corpus, annualReturn, months, existingCorpus) {
 }
 
 function calcCorpus(monthlyExpense, annualInflation, annualPostReturn, yearsInRetirement) {
-  // Proper monthly rate via compounding (matches Excel discrete monthly model)
-  const r = Math.pow(1 + annualPostReturn / 100, 1/12) - 1;
-  const g = Math.pow(1 + annualInflation  / 100, 1/12) - 1;
+  // Simple nominal monthly rates (dividing annual by 12) — matches the Excel model exactly
+  const r = annualPostReturn / 100 / 12;
+  const g = annualInflation  / 100 / 12;
   const n = yearsInRetirement * 12 + 1;
   if (Math.abs(r - g) < 0.000001) {
     return monthlyExpense * n;
@@ -1079,7 +1136,8 @@ function calcSIPForReturn(ret) {
   const yearsInRetirement = Math.max(1, lifeExp - retireAge);
   const months = yearsToRetire * 12;
 
-  const futureExpense = expense * Math.pow(1 + inflation/100, yearsToRetire);
+  const monthsToRetire = yearsToRetire * 12;
+  const futureExpense = expense * Math.pow(1 + inflation / 1200, monthsToRetire);
   const corpus = calcCorpus(futureExpense, inflation, postReturn, yearsInRetirement);
   const sip = calcSIPForCorpus(corpus, ret, months, existing);
   return { sip, corpus, futureExpense, months, yearsToRetire };
@@ -1109,6 +1167,8 @@ function update() {
   document.getElementById('val-inflation').textContent = document.getElementById('inflation').value + '%';
   document.getElementById('val-postReturn').textContent = document.getElementById('postReturn').value + '%';
   document.getElementById('val-existing').textContent = Number(document.getElementById('existing').value).toLocaleString();
+
+
 
   const age = +document.getElementById('age').value;
   const retireAge = +document.getElementById('retireAge').value;
@@ -1146,11 +1206,11 @@ function drawChart(corpus, sip, months, age, retireAge, existing) {
   const r = Math.pow(1 + currentReturn / 100, 1/12) - 1;
   const inflation = +document.getElementById('inflation').value;
   const postReturn = +document.getElementById('postReturn').value;
-  const rPost = Math.pow(1 + postReturn / 100, 1/12) - 1;
-  const inflationMonthly = Math.pow(1 + inflation / 100, 1/12) - 1;
+  const rPost = postReturn / 100 / 12;
+  const inflationMonthly = inflation / 100 / 12;
   const lifeExp = +document.getElementById('lifeExp').value;
   const retirementMonths = (lifeExp - retireAge) * 12;
-  const futureExpense = +document.getElementById('expense').value * Math.pow(1 + inflation/100, retireAge - age);
+  const futureExpense = (+document.getElementById('expense').value) * Math.pow(1 + inflationMonthly, (retireAge - age) * 12);
 
   // --- Accumulation phase ---
   const accSteps = Math.min(months, 60);
@@ -1428,9 +1488,9 @@ function updateReality() {
   const accMonths          = yearsToRetire * 12;
   const retirementMonths   = Math.max(1, lifeExp - retireAge) * 12;
   const rAcc               = Math.pow(1 + currentReturn / 100, 1/12) - 1;
-  const rPost              = Math.pow(1 + postReturn / 100, 1/12) - 1;
-  const inflMonthly        = Math.pow(1 + inflation / 100, 1/12) - 1;
-  const futureExpense      = expense * Math.pow(1 + inflation / 100, yearsToRetire);
+  const rPost              = postReturn / 100 / 12;
+  const inflMonthly        = inflation / 100 / 12;
+  const futureExpense      = expense * Math.pow(1 + inflMonthly, accMonths);
 
   // Build corpus at retirement with actual canInvest amount
   const corpusAtRetirement = existing * Math.pow(1 + rAcc, accMonths) +
@@ -1467,7 +1527,7 @@ function updateReality() {
       `With <span class="verdict-highlight">${canInvest.toLocaleString()}</span> monthly, your corpus lasts ` +
       `<span class="verdict-highlight">${yearsSurvived} years</span> into retirement — ` +
       `running out <span class="verdict-highlight">${shortYears} years early</span>, at age <span class="verdict-highlight">${ageAtDepletion}</span> instead of ${lifeExp}. ` +
-      `You need to either invest more, retire later, or plan for a lower monthly expense.`;
+      `You need to either invest more, retire later, or plan for a lower annual expense.`;
   } else {
     // Corpus survives — calculate sustainable monthly expense (solve for PMT that depletes corpus at life expectancy)
     // Binary search: find max monthly expense (today's terms) such that corpus hits 0 at lifeExp
